@@ -5,7 +5,7 @@ public abstract class FiniteStateMachine<State extends Enum,
         Result> {
 
     public Result run(Context context) {
-
+// проходим по всем состояниям
         final TransitionMatrix<State> matrix = context.getTransitionMatrix();
         State currentState = matrix.getStartState();
 
@@ -20,12 +20,13 @@ public abstract class FiniteStateMachine<State extends Enum,
 
         return finish(context);
     }
-
+// переход в следущее состояние
     private State moveForward(Context context, State currentState) {
 
         final StateAcceptor<State, Context> stateAcceptor = context.getStateAcceptor();
         final TransitionMatrix<State> matrix = context.getTransitionMatrix();
 
+        // находит и возвращает первое предпологаемое состояние (possibleState), которе удалось распарсить
         for (State possibleState : matrix.getPossibleStates(currentState)) {
             if (stateAcceptor.acceptState(context, possibleState)) {
                 return possibleState;

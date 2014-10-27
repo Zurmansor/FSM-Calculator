@@ -11,8 +11,8 @@ public class EvaluationContext implements StateMachineContext<State, EvaluationC
 
     private final EvaluationStack evaluationStack = new EvaluationStack();
 
-    private final String mathExpression;
-    private int expressionParsingIndex = 0;
+    private final String mathExpression; // входящее выражение
+    private int expressionParsingIndex = 0; // позиция распарсивания (кажется)
 
     public EvaluationContext(String mathExpression) {
         this.mathExpression = mathExpression;
