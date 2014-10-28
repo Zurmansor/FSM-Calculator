@@ -10,7 +10,7 @@ public class Computation {
         Deque<Operation> operationStack = context.getEvaluationStack().getOperationStack();
 
         if (operandStack.isEmpty()) {
-            return null;
+            return 0.0;
         }
 
         while (!operationStack.isEmpty()) {

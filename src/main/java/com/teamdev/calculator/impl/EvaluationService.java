@@ -1,5 +1,6 @@
 package com.teamdev.calculator.impl;
 
+import com.teamdev.calculator.impl.parser.BracketParser;
 import com.teamdev.calculator.impl.parser.EndOfExpressionParser;
 import com.teamdev.calculator.impl.parser.NumberParser;
 import com.teamdev.calculator.impl.parser.OperationParser;
@@ -8,9 +9,7 @@ import com.teamdev.fsm.StateAcceptor;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.teamdev.calculator.impl.State.FINISH;
-import static com.teamdev.calculator.impl.State.NUMBER;
-import static com.teamdev.calculator.impl.State.OPERATION;
+import static com.teamdev.calculator.impl.State.*;
 
 public class EvaluationService implements StateAcceptor<State, EvaluationContext> {
 
@@ -18,6 +17,8 @@ public class EvaluationService implements StateAcceptor<State, EvaluationContext
         put(NUMBER, new NumberParser());
         put(OPERATION, new OperationParser());
         put(FINISH, new EndOfExpressionParser());
+        put(OPEN_BRACKET, new BracketParser());
+        put(CLOSE_BRACKET, new BracketParser());
     }};
 
 

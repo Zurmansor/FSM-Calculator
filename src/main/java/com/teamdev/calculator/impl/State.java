@@ -4,5 +4,7 @@ public enum State {
     START,
     NUMBER,
     OPERATION,
-    FINISH
+    FINISH,
+    OPEN_BRACKET,
+    CLOSE_BRACKET
 }
