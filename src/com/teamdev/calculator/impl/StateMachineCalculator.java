@@ -25,12 +25,15 @@ public class StateMachineCalculator extends FiniteStateMachine<State, Evaluation
 
     @Override
     protected Double finish(EvaluationContext context) {
-        return context.getEvaluationStack().getOperandStack().pop();
+        Computation count = new Computation();
+
+//        context.getEvaluationStack().getOperandStack().pop()
+        return count.calculate(context);
     }
 
     public static void main(String[] args) throws Exception {
         final StateMachineCalculator calculator = new StateMachineCalculator();
-        String in = "58+4-5.65+765+3";
+        String in = "1+4-3";
         logger.log(Level.INFO, in);
 
         final double result = calculator.evaluate(in);
