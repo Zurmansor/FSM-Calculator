@@ -1,33 +1,31 @@
 package com.teamdev.calculator.impl;
 
+import com.teamdev.calculator.EvaluationException;
 import com.teamdev.fsm.StateAcceptor;
 import com.teamdev.fsm.StateMachineContext;
 import com.teamdev.fsm.TransitionMatrix;
 
-public class EvaluationContext implements StateMachineContext<State, EvaluationContext> {
+public class EvaluationContext implements StateMachineContext<State,
+        EvaluationContext, EvaluationException> {
 
     private final EvaluationMatrix matrix = new EvaluationMatrix();
     private final EvaluationService evaluationService = new EvaluationService();
+    private final BinaryOperatorFactory binaryOperatorFactory = new BinaryOperatorFactory();
 
     private final EvaluationStack evaluationStack = new EvaluationStack();
 
-    private final String mathExpression; // входящее выражение
-    private int expressionParsingIndex = 0; // позиция распарсивания (кажется)
+    private final MathExpressionReader expressionReader;
 
     public EvaluationContext(String mathExpression) {
-        this.mathExpression = mathExpression;
+        expressionReader = new MathExpressionReader(mathExpression);
     }
 
-    public String getMathExpression() {
-        return mathExpression;
+    public MathExpressionReader getExpressionReader() {
+        return expressionReader;
     }
 
-    public int getExpressionParsingIndex() {
-        return expressionParsingIndex;
-    }
-
-    public void setExpressionParsingIndex(int expressionParsingIndex) {
-        this.expressionParsingIndex = expressionParsingIndex;
+    public BinaryOperatorFactory getBinaryOperatorFactory() {
+        return binaryOperatorFactory;
     }
 
     public EvaluationStack getEvaluationStack() {
@@ -40,7 +38,7 @@ public class EvaluationContext implements StateMachineContext<State, EvaluationC
     }
 
     @Override
-    public StateAcceptor<State, EvaluationContext> getStateAcceptor() {
+    public StateAcceptor<State, EvaluationContext, EvaluationException> getStateAcceptor() {
         return evaluationService;
     }
 }

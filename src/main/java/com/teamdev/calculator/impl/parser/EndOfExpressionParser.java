@@ -1,22 +1,27 @@
 package com.teamdev.calculator.impl.parser;
 
-import com.teamdev.calculator.impl.EvaluationCommand;
-import com.teamdev.calculator.impl.EvaluationContext;
-import com.teamdev.calculator.impl.EvaluationStack;
-import com.teamdev.calculator.impl.MathExpressionParser;
+import com.teamdev.calculator.EvaluationException;
+import com.teamdev.calculator.impl.*;
 
 public class EndOfExpressionParser implements MathExpressionParser {
 
     @Override
     public EvaluationCommand parse(EvaluationContext context) {
-        if (context.getExpressionParsingIndex() != context.getMathExpression().length()) {
+        final MathExpressionReader reader = context.getExpressionReader();
+
+        if (!reader.endOfExpression()) {
             return null;
         }
 
         return new EvaluationCommand() {
             @Override
-            public void evaluate(EvaluationStack stack) {
-                // do nothing
+            public void evaluate(EvaluationStack stack) throws EvaluationException {
+
+                if (!stack.getBracketStack().isEmpty()) {
+                    throw new EvaluationException("Closing bracket expected.", reader.getIndex());
+                }
+
+                stack.popAllOperators();
             }
         };
     }

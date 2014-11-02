@@ -4,13 +4,9 @@ import com.teamdev.calculator.EvaluationException;
 import com.teamdev.calculator.MathExpressionCalculator;
 import com.teamdev.fsm.FiniteStateMachine;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-public class StateMachineCalculator extends FiniteStateMachine<State, EvaluationContext, Double>
+public class StateMachineCalculator extends FiniteStateMachine<
+        State, EvaluationContext, Double, EvaluationException>
         implements MathExpressionCalculator {
-
-    private static Logger logger = Logger.getLogger(StateMachineCalculator.class.getName());
 
     @Override
     public double evaluate(String mathExpression) throws EvaluationException {
@@ -18,23 +14,26 @@ public class StateMachineCalculator extends FiniteStateMachine<State, Evaluation
     }
 
     @Override
-    protected void deadlock(EvaluationContext context, State currentState) {
-        throw new IllegalStateException("Deadlock in state " + currentState + " at position " +
-                context.getExpressionParsingIndex());
+    protected void deadlock(EvaluationContext context, State currentState) throws EvaluationException {
+        throw new EvaluationException("Incorrect expression format.",
+                context.getExpressionReader().getIndex());
     }
 
     @Override
     protected Double finish(EvaluationContext context) {
-        Computation count = new Computation();
-        return count.calculate(context);
+        return context.getEvaluationStack().getOperandStack().pop();
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         final StateMachineCalculator calculator = new StateMachineCalculator();
-        String in = "1+(4-3)";
-        logger.log(Level.INFO, in);
-
-        final double result = calculator.evaluate(in);
-        System.out.println("result = " + result);
+        try {
+            final String mathExpression = "(((2 + 2) + 2) + 2 * 2";
+            System.out.println(mathExpression);
+            final double result = calculator.evaluate(mathExpression);
+            System.out.println("result = " + result);
+        } catch (EvaluationException e) {
+            System.out.println("Calculation error: " + e.getMessage());
+            System.out.println("at position " + e.getErrorIndex());
+        }
     }
 }

@@ -1,9 +1,6 @@
 package com.teamdev.calculator.impl.parser;
 
-import com.teamdev.calculator.impl.EvaluationCommand;
-import com.teamdev.calculator.impl.EvaluationContext;
-import com.teamdev.calculator.impl.EvaluationStack;
-import com.teamdev.calculator.impl.MathExpressionParser;
+import com.teamdev.calculator.impl.*;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -17,21 +14,21 @@ public class NumberParser implements MathExpressionParser {
     @Override
     public EvaluationCommand parse(EvaluationContext context) {
 
-        final String mathExpression = context.getMathExpression(); // берем выражение
-        final int index = context.getExpressionParsingIndex(); // берем позицию в выражении
+        final MathExpressionReader expressionReader = context.getExpressionReader();
+        final String mathExpression = expressionReader.getMathExpression();
+        final int index = expressionReader.getIndex();
 
-        final ParsePosition parsePosition = new ParsePosition(index); // встроенный класс java
+        final ParsePosition parsePosition = new ParsePosition(index);
         final Number number = numberFormat.parse(mathExpression, parsePosition);
         if (parsePosition.getErrorIndex() != -1) {
             return null;
         }
 
-        context.setExpressionParsingIndex(parsePosition.getIndex()); // как-то получается новая позиция для следующего парсинга. сохраняем ее
+        expressionReader.setIndex(parsePosition.getIndex());
 
         return new EvaluationCommand() {
             @Override
             public void evaluate(EvaluationStack stack) {
-                // накапливание в стек
                 stack.getOperandStack().push(number.doubleValue());
             }
         };
