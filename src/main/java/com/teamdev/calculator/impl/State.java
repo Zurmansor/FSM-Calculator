@@ -6,5 +6,7 @@ public enum State {
     BINARY_OPERATOR,
     OPENING_BRACKET,
     CLOSING_BRACKET,
+    FUNCTION,
+    COMMA,
     FINISH
 }

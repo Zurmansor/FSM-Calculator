@@ -11,10 +11,26 @@ public class EvaluationContext implements StateMachineContext<State,
     private final EvaluationMatrix matrix = new EvaluationMatrix();
     private final EvaluationService evaluationService = new EvaluationService();
     private final BinaryOperatorFactory binaryOperatorFactory = new BinaryOperatorFactory();
+    private final FunctionFactory functionFactory = new FunctionFactory();
 
     private final EvaluationStack evaluationStack = new EvaluationStack();
 
+
     private final MathExpressionReader expressionReader;
+
+    private boolean isFunction = false;
+
+    public boolean isFunction() {
+        return isFunction;
+    }
+
+    public void setFunctionFlag(Boolean flag) {
+        isFunction = flag;
+    }
+
+//    public void setBracketFlag() {
+//        isFunction = false;
+//    }
 
     public EvaluationContext(String mathExpression) {
         expressionReader = new MathExpressionReader(mathExpression);
@@ -26,6 +42,10 @@ public class EvaluationContext implements StateMachineContext<State,
 
     public BinaryOperatorFactory getBinaryOperatorFactory() {
         return binaryOperatorFactory;
+    }
+
+    public FunctionFactory getFunctionFactory() {
+        return functionFactory;
     }
 
     public EvaluationStack getEvaluationStack() {

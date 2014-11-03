@@ -41,19 +41,17 @@ public class StateMachineCalculator extends FiniteStateMachine<
 
     public static void main(String[] args) {
         final StateMachineCalculator calculator = new StateMachineCalculator();
-        new MainForm();
-//            final String mathExpression = "(((2 + 2) + 2) + 2 * 2)";
+//        new MainForm();
 
-
-
-  /*      try {
-            final String mathExpression = "(((2 + 2) + 2) + 2 * 2)";
+//        final String mathExpression = "min(2, 7)";
+        try {
+            final String mathExpression = "min(2, 4, 1, 3, 6)";
             System.out.println(mathExpression);
             final double result = calculator.evaluate(mathExpression);
             System.out.println("result = " + result);
         } catch (EvaluationException e) {
             System.out.println("Calculation error: " + e.getMessage());
             System.out.println("at position " + e.getErrorIndex());
-        }*/
+        }
     }
 }

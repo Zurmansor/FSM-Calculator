@@ -1,5 +1,6 @@
 package com.teamdev.calculator.impl.parser;
 
+import com.teamdev.calculator.EvaluationException;
 import com.teamdev.calculator.impl.*;
 
 import java.text.DecimalFormat;

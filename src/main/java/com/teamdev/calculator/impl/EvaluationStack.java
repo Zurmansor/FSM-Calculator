@@ -4,10 +4,12 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class EvaluationStack {
-
     private final Deque<Double> operandStack = new ArrayDeque<Double>();
     private final Deque<BinaryOperator> operatorStack = new ArrayDeque<BinaryOperator>();
     private final Deque<Integer> bracketStack = new ArrayDeque<Integer>();
+    private final Deque<Function> functionStack = new ArrayDeque<Function>();
+    private final Deque<Boolean> flagStack = new ArrayDeque<Boolean>();
+
 
     public Deque<Double> getOperandStack() {
         return operandStack;
@@ -21,6 +23,14 @@ public class EvaluationStack {
         return bracketStack;
     }
 
+    public Deque<Function> getFunctionStack() {
+        return functionStack;
+    }
+
+    public Deque<Boolean> getFlagStack() {
+        return flagStack;
+    }
+
     public void pushOperator(BinaryOperator binaryOperator) {
 
         while (!operatorStack.isEmpty() && operatorStack.peek().compareTo(binaryOperator) > -1) {
@@ -30,11 +40,29 @@ public class EvaluationStack {
         operatorStack.push(binaryOperator);
     }
 
+    public void pushFunction(Function function) {
+        functionStack.push(function);
+    }
+
+    public void pushFlag(Boolean flag){
+        flagStack.push(flag);
+    }
+
+
+
     public void executeTopOperator() {
         final Double rightOperand = operandStack.pop();
         final Double leftOperand = operandStack.pop();
         final BinaryOperator operator = operatorStack.pop();
         final double result = operator.calculate(leftOperand, rightOperand);
+        operandStack.push(result);
+    }
+
+    public void executeTopFunction() {
+        final Double rightOperand = operandStack.pop();
+        final Double leftOperand = operandStack.pop();
+        final Function function = functionStack.peek();
+        final double result = function.perform(leftOperand, rightOperand);
         operandStack.push(result);
     }
 
@@ -44,15 +72,31 @@ public class EvaluationStack {
         }
     }
 
-    public void pushOpeningBracket() {
-        bracketStack.push(operatorStack.size());
+    public void pushOpeningBracket(EvaluationContext context) {
+        if (context.isFunction()){
+            bracketStack.push(operandStack.size());
+        } else {
+            bracketStack.push(operatorStack.size());
+        }
     }
 
-    public void pushClosingBracket() {
-        final Integer operatorStackSize = bracketStack.pop();
+    public void pushClosingBracket(EvaluationContext context) {
+        if (context.isFunction()) {
+            final Integer operandStackSize = bracketStack.pop();
 
-        while (operatorStack.size() > operatorStackSize) {
-            executeTopOperator();
+            while (operandStack.size() > operandStackSize + 1) {
+                executeTopFunction();
+            }
+
+            functionStack.pop();
+        } else {
+            final Integer operatorStackSize = bracketStack.pop();
+
+            while (operatorStack.size() > operatorStackSize) {
+                executeTopOperator();
+            }
         }
+
+        context.setFunctionFlag(flagStack.pop());
     }
 }

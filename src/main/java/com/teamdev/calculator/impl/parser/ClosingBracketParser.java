@@ -8,7 +8,7 @@ import static com.teamdev.calculator.impl.parser.MathExpressionSymbols.CLOSING_B
 public class ClosingBracketParser implements MathExpressionParser {
 
     @Override
-    public EvaluationCommand parse(EvaluationContext context) {
+    public EvaluationCommand parse(final EvaluationContext context) {
 
         final MathExpressionReader expressionReader = context.getExpressionReader();
 
@@ -29,7 +29,7 @@ public class ClosingBracketParser implements MathExpressionParser {
                                 expressionReader.getIndex());
                     }
 
-                    stack.pushClosingBracket();
+                    stack.pushClosingBracket(context);
                 }
             };
         }

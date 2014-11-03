@@ -16,6 +16,8 @@ public class EvaluationService implements StateAcceptor<State, EvaluationContext
         put(BINARY_OPERATOR, new BinaryOperatorParser());
         put(OPENING_BRACKET, new OpeningBracketParser());
         put(CLOSING_BRACKET, new ClosingBracketParser());
+        put(FUNCTION, new FunctionParser());
+        put(COMMA, new CommaParser());
         put(FINISH, new EndOfExpressionParser());
     }};
 
