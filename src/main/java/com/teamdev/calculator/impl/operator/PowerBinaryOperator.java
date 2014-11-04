@@ -5,6 +5,11 @@ import static com.teamdev.calculator.impl.operator.AbstractBinaryOperator.Priori
 public class PowerBinaryOperator extends AbstractBinaryOperator {
 
     @Override
+    public boolean isRightAssociated() {
+        return true;
+    }
+
+    @Override
     protected Priority getPriority() {
         return HIGH;
     }

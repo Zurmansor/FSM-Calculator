@@ -5,6 +5,11 @@ import static com.teamdev.calculator.impl.operator.AbstractBinaryOperator.Priori
 public class DivideBinaryOperator extends AbstractBinaryOperator {
 
     @Override
+    public boolean isRightAssociated() {
+        return false;
+    }
+
+    @Override
     protected Priority getPriority() {
         return MEDIUM;
     }

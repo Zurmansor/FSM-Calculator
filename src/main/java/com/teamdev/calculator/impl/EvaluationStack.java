@@ -39,7 +39,8 @@ public class EvaluationStack {
 
         while (!operatorStack.isEmpty()
                 && (bracketStack.isEmpty() || operatorStack.size() > bracketStack.peek())
-                && operatorStack.peek().compareTo(binaryOperator) > -1) {
+                && operatorStack.peek().compareTo(binaryOperator) > -1
+                && !binaryOperator.isRightAssociated()) {
             executeTopOperator();
         }
 

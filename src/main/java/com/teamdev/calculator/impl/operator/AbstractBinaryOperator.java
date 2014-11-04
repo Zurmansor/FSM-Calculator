@@ -10,6 +10,10 @@ abstract public class AbstractBinaryOperator implements BinaryOperator {
         HIGH
     }
 
+    protected boolean isRightAssociated = false;
+
+    public abstract boolean isRightAssociated();
+
     protected abstract Priority getPriority();
 
     @Override

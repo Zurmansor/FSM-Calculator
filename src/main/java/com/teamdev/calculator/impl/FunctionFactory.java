@@ -1,9 +1,6 @@
 package com.teamdev.calculator.impl;
 
-import com.teamdev.calculator.impl.function.MaxFunction;
-import com.teamdev.calculator.impl.function.MinFunction;
-import com.teamdev.calculator.impl.function.SqrtFunction;
-import com.teamdev.calculator.impl.function.SumFunction;
+import com.teamdev.calculator.impl.function.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +13,7 @@ public class FunctionFactory {
         put("max", new MaxFunction());
         put("sum", new SumFunction());
         put("sqrt", new SqrtFunction());
+        put("abs", new AbsFunction());
     }};
 
     public Function create(String functionPresentation) {

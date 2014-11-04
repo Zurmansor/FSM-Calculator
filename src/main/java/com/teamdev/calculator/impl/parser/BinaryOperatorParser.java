@@ -19,6 +19,7 @@ public class BinaryOperatorParser implements MathExpressionParser {
                 expressionReader.incrementIndex(presentation.length());
 
                 final BinaryOperator binaryOperator = factory.create(presentation);
+//                binaryOperator.is
 
                 return new EvaluationCommand() {
                     @Override
