@@ -1,6 +1,10 @@
 package com.teamdev.calculator.impl;
 
+import com.teamdev.calculator.EvaluationException;
+
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Deque;
 
 public class EvaluationStack {
@@ -60,6 +64,7 @@ public class EvaluationStack {
         operandStack.push(result);
     }
 
+    /*
     public void executeTopFunction() {
         final Double rightOperand = operandStack.pop();
         final Double leftOperand = operandStack.pop();
@@ -67,6 +72,7 @@ public class EvaluationStack {
         final double result = function.perform(leftOperand, rightOperand);
         operandStack.push(result);
     }
+    */
 
     public void popAllOperators() {
         while (!operatorStack.isEmpty()) {
@@ -83,7 +89,7 @@ public class EvaluationStack {
         }
     }
 
-    public void pushClosingBracket(EvaluationContext context) {
+    public void pushClosingBracket(EvaluationContext context) throws EvaluationException {
 
         final Integer operatorStackSize = bracketStack.pop();
 
@@ -94,9 +100,16 @@ public class EvaluationStack {
         if (context.isFunction()) {
             final Integer operandStackSize = bracketStack.pop();
 
-            while (operandStack.size() > operandStackSize + 1) {
-                executeTopFunction();
+//            final double result = function.calculate((Double[]) arguments.toArray(new Double[0]));
+
+            final ArrayList<Double> args = new ArrayList<Double>();
+            while (operandStack.size() > operandStackSize) {
+                args.add(operandStack.pop());
             }
+
+            final Function function = functionStack.peek();
+            final double result = function.perform((Double[]) args.toArray(new Double[args.size()]));
+            operandStack.push(result);
             functionStack.pop();
         }
     }
