@@ -5,7 +5,13 @@ public class MathExpressionReader {
     private int index = 0;
 
     public MathExpressionReader(String mathExpression) {
+        mathExpression = brutalCheat(mathExpression);
         this.mathExpression = mathExpression;
+    }
+
+    private String brutalCheat(String mathExpression) {
+        mathExpression = mathExpression.replace(",", ", ");
+        return mathExpression;
     }
 
     public String getMathExpression() {

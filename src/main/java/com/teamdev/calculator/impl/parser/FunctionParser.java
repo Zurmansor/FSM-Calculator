@@ -23,8 +23,12 @@ public class FunctionParser implements MathExpressionParser{
                     @Override
                     public void evaluate(EvaluationStack stack) {
                         stack.pushFunction(function);
-                        stack.pushFlag(context.isFunction());
-                        context.setFunctionFlag(true);
+                        // говорим, что следующая скобка будет функциональной
+                        context.setTempFunctionFlag(true);
+
+
+//                        stack.pushFlag(context.isFunction());
+//                        context.setFunctionFlag(true);
                     }
                 };
             }

@@ -43,9 +43,12 @@ public class StateMachineCalculator extends FiniteStateMachine<
         final StateMachineCalculator calculator = new StateMachineCalculator();
 //        new MainForm();
 
-//        final String mathExpression = "min(2, 7)";
+//        final String mathExpression = "min(2, 7)min(3,4,min(5,7)min(2, 4, min(1,7))";
         try {
-            final String mathExpression = "min(2, 4, 1, 3, 6)";
+//            final String mathExpression = "(5-3)*(1-3)";
+//            final String mathExpression = "(2+2)*(1+1)";
+//            final String mathExpression = "2*2+3";
+            final String mathExpression = "min(5, 7, 2-1)";
             System.out.println(mathExpression);
             final double result = calculator.evaluate(mathExpression);
             System.out.println("result = " + result);

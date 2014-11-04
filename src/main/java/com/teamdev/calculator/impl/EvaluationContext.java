@@ -19,6 +19,7 @@ public class EvaluationContext implements StateMachineContext<State,
     private final MathExpressionReader expressionReader;
 
     private boolean isFunction = false;
+    private boolean isTempFunction = false;
 
     public boolean isFunction() {
         return isFunction;
@@ -26,6 +27,14 @@ public class EvaluationContext implements StateMachineContext<State,
 
     public void setFunctionFlag(Boolean flag) {
         isFunction = flag;
+    }
+
+    public boolean isTempFunction() {
+        return isTempFunction;
+    }
+
+    public void setTempFunctionFlag(Boolean flag) {
+        isTempFunction = flag;
     }
 
 //    public void setBracketFlag() {

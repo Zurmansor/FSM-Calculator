@@ -33,7 +33,9 @@ public class EvaluationStack {
 
     public void pushOperator(BinaryOperator binaryOperator) {
 
-        while (!operatorStack.isEmpty() && operatorStack.peek().compareTo(binaryOperator) > -1) {
+        while (!operatorStack.isEmpty()
+                && (bracketStack.isEmpty() || operatorStack.size() > bracketStack.peek())
+                && operatorStack.peek().compareTo(binaryOperator) > -1) {
             executeTopOperator();
         }
 
@@ -75,28 +77,39 @@ public class EvaluationStack {
     public void pushOpeningBracket(EvaluationContext context) {
         if (context.isFunction()){
             bracketStack.push(operandStack.size());
+            bracketStack.push(operatorStack.size());
         } else {
             bracketStack.push(operatorStack.size());
         }
     }
 
     public void pushClosingBracket(EvaluationContext context) {
+
+        final Integer operatorStackSize = bracketStack.pop();
+
+        while (operatorStack.size() > operatorStackSize) {
+            executeTopOperator();
+        }
+        // отрабатываем скобку как обычную, а потом проверяем функциональна ли она
         if (context.isFunction()) {
             final Integer operandStackSize = bracketStack.pop();
 
             while (operandStack.size() > operandStackSize + 1) {
                 executeTopFunction();
             }
-
             functionStack.pop();
-        } else {
-            final Integer operatorStackSize = bracketStack.pop();
-
-            while (operatorStack.size() > operatorStackSize) {
-                executeTopOperator();
-            }
         }
+    }
 
-        context.setFunctionFlag(flagStack.pop());
+    public void pushClosingComma() {
+        final Integer operatorStackSize = bracketStack.pop();
+
+        while (operatorStack.size() > operatorStackSize){
+            executeTopOperator();
+        }
+    }
+
+    public void pushOpeningComma() {
+        bracketStack.push(operatorStack.size());
     }
 }

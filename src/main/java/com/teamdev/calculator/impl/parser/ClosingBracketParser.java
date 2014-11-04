@@ -30,6 +30,9 @@ public class ClosingBracketParser implements MathExpressionParser {
                     }
 
                     stack.pushClosingBracket(context);
+
+                    //при закрытии скобки берем из стека текущее состояние функции
+                    context.setFunctionFlag(context.getEvaluationStack().getFlagStack().pop());
                 }
             };
         }

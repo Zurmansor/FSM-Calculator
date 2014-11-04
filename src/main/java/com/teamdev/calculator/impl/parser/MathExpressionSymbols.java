@@ -2,7 +2,8 @@ package com.teamdev.calculator.impl.parser;
 
 public enum MathExpressionSymbols {
     OPENING_BRACKET('('),
-    CLOSING_BRACKET(')');
+    CLOSING_BRACKET(')'),
+    COMMA(',');
 
     private final char symbol;
 
