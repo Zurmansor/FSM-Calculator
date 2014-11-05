@@ -7,4 +7,6 @@ public interface StateMachineContext<State extends Enum,
     TransitionMatrix<State> getTransitionMatrix();
 
     StateAcceptor<State, Context, TransitionError> getStateAcceptor();
+
+    boolean isFunction();
 }

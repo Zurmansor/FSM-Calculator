@@ -25,10 +25,6 @@ public class FunctionParser implements MathExpressionParser{
                         stack.pushFunction(function);
                         // говорим, что следующая скобка будет функциональной
                         context.setTempFunctionFlag(true);
-
-
-//                        stack.pushFlag(context.isFunction());
-//                        context.setFunctionFlag(true);
                     }
                 };
             }

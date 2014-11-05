@@ -9,4 +9,6 @@ public interface TransitionMatrix<State extends Enum> {
     State getFinishState();
 
     Set<State> getPossibleStates(State state);
+
+    Set<State> getPossibleFunctionStates(State state);
 }

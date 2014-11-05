@@ -1,14 +1,13 @@
 package com.teamdev.calculator.impl.function;
 
 
-public class MinFunction extends  AbstractFunction{
+public class MaxFunction extends  AbstractFunction{
     @Override
     public double perform(Double... args) {
-        double result = Double.MAX_VALUE;
+        double result = Double.MIN_VALUE;
         for (double arg : args) {
-            result = Math.min(result, arg);
+            result = Math.max(result, arg);
         }
         return result;
     }
-
 }

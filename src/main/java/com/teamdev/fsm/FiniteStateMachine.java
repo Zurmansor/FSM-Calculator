@@ -1,5 +1,7 @@
 package com.teamdev.fsm;
 
+import com.teamdev.calculator.impl.EvaluationContext;
+
 public abstract class FiniteStateMachine<State extends Enum,
         Context extends StateMachineContext<State, Context, TransitionError>,
         Result, TransitionError extends Exception> {
@@ -31,6 +33,16 @@ public abstract class FiniteStateMachine<State extends Enum,
                 return possibleState;
             }
         }
+        // если сейчас функция то нужно проверить еще возможные состояния переходов (get Possible Function States)
+
+       if (context.isFunction()) {
+           for (State possibleState : matrix.getPossibleFunctionStates(currentState)) {
+               if (stateAcceptor.acceptState(context, possibleState)) {
+                   return possibleState;
+               }
+           }
+       }
+
         return null;
     }
 
