@@ -166,4 +166,13 @@ public class FunctionTest {
 
         final double result = calculator.evaluate(testExpression);
     }
+
+    @Test(expected = EvaluationException.class)
+    public void testEmpty() throws EvaluationException {
+        String testExpression = "";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+
+        final double result = calculator.evaluate(testExpression);
+        assertEquals(1.0, result);
+    }
 }

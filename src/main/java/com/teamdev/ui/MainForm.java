@@ -1,32 +1,33 @@
 package com.teamdev.ui;
 
-import com.teamdev.calculator.EvaluationException;
 import com.teamdev.calculator.impl.StateMachineCalculator;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 
 public class MainForm {
-    final private int FORM_WIDTH = 300;
-    final private int FORM_HEIGHT = 250;
+    final private int FORM_WIDTH = 450;
+    final private int FORM_HEIGHT = 120;
 
     private JPanel fieldsPanel;
+    private JPanel errorPanel;
     private JButton calculateBtn;
     private JTextField expressionField;
     private JLabel solutionLabel;
     private JLabel errorLabel;
 
-//    public Font MAIN_FONT = new Font("Tahoma", Font.PLAIN, 14);
-
     public MainForm() {
         JFrame frame = new JFrame("Calculator");
-        fieldsPanel = new JPanel(new BorderLayout());
+        fieldsPanel = new JPanel();
+        errorPanel = new JPanel();
         calculateBtn = new JButton("Calculate");
-        expressionField = new JTextField("2+2");
-        solutionLabel = new JLabel("label");
+        expressionField = new JTextField(20);
+        solutionLabel = new JLabel();
         errorLabel = new JLabel("error");
 
         frame.setSize(FORM_WIDTH, FORM_HEIGHT);
@@ -36,13 +37,14 @@ public class MainForm {
         errorLabel.setForeground(Color.RED);
         errorLabel.setVisible(false);
 
-        fieldsPanel.add(expressionField, BorderLayout.LINE_START);
-        fieldsPanel.add(solutionLabel, BorderLayout.LINE_END);
-        fieldsPanel.add(errorLabel, BorderLayout.SOUTH);
+        fieldsPanel.add(expressionField);
+        fieldsPanel.add(solutionLabel);
+
+        errorPanel.add(fieldsPanel,BorderLayout.NORTH);
+        errorPanel.add(errorLabel, BorderLayout.CENTER);
 
         frame.add(calculateBtn, BorderLayout.SOUTH);
-        frame.add(fieldsPanel,BorderLayout.CENTER);
-
+        frame.add(errorPanel,BorderLayout.CENTER);
 
         addListeners();
 
@@ -52,13 +54,39 @@ public class MainForm {
     private void addListeners () {
         calculateBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                // EVENT FOR THE CALC BUTTON
-                final StateMachineCalculator calculator = new StateMachineCalculator();
-                String mathExpression;
-                mathExpression = expressionField.getText();
-                calculator.start(mathExpression);
+                pushExpression();
             }
         });
+
+
+        expressionField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // если нажа ENTER, отправляем выражение как по кнопке Calculate
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                    pushExpression();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
+    }
+
+    private void pushExpression () {
+        // EVENT FOR THE CALC BUTTON
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+        String mathExpression;
+        mathExpression = expressionField.getText();
+        calculator.start(mathExpression);
     }
 
     public void setResult (double result) {

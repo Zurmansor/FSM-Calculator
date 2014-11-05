@@ -33,6 +33,10 @@ public class EvaluationService implements StateAcceptor<State, EvaluationContext
 
         context.getExpressionReader().skipWhitespaces();
 
+        if (context.getExpressionReader().getMathExpression().length() == 0) {
+            throw new EvaluationException("expression is empty", 0);
+        }
+
         final EvaluationCommand evaluationCommand = parser.parse(context);
         if (evaluationCommand == null) {
             return false;
