@@ -9,7 +9,7 @@ public class CommaParser implements MathExpressionParser {
 
         final MathExpressionReader expressionReader = context.getExpressionReader();
 
-        if (expressionReader.getIndex() >= expressionReader.getMathExpression().length()) {
+        if (expressionReader.endOfExpression()) {
             return null;
         }
 

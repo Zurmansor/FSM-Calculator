@@ -52,4 +52,13 @@ public class CalculatorTest {
         final double result = calculator.evaluate(testExpression);
         assertEquals(584.7178, result);
     }
+
+    @Test
+            (expected = EvaluationException.class)
+    public void testEndOperator() throws EvaluationException {
+        String testExpression = "3-4-";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+
+        final double result = calculator.evaluate(testExpression);
+    }
 }

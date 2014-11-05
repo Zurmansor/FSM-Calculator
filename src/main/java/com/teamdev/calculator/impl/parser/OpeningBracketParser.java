@@ -11,6 +11,10 @@ public class OpeningBracketParser implements MathExpressionParser {
 
         final MathExpressionReader expressionReader = context.getExpressionReader();
 
+        if (expressionReader.endOfExpression()) {
+            return null;
+        }
+
         if (expressionReader.currentChar() == OPENING_BRACKET.getSymbol()) {
 
             expressionReader.incrementIndex(1);
