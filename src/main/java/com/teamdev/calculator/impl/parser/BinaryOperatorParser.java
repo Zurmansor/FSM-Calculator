@@ -3,6 +3,11 @@ package com.teamdev.calculator.impl.parser;
 import com.teamdev.calculator.impl.*;
 
 public class BinaryOperatorParser implements MathExpressionParser {
+    /**
+     * Parses the binary operation.
+     * @param context
+     * @return Evaluation command.
+     */
     @Override
     public EvaluationCommand parse(EvaluationContext context) {
 

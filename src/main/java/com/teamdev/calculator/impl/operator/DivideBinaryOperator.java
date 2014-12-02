@@ -14,6 +14,12 @@ public class DivideBinaryOperator extends AbstractBinaryOperator {
         return MEDIUM;
     }
 
+    /**
+     * Division of input parameters
+     * @param leftOperand
+     * @param rightOperand
+     * @return result of division
+     */
     @Override
     public double calculate(double leftOperand, double rightOperand) {
         return leftOperand / rightOperand;

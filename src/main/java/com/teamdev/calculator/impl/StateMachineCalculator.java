@@ -60,7 +60,7 @@ public class StateMachineCalculator extends FiniteStateMachine<
         if (UI) {
             mainForm = new MainForm();
         } else {
-            final String mathExpression = "sqrt(4,7)";
+            final String mathExpression = "sqrt(4,7d)";
             calculator.start(mathExpression);
         }
     }

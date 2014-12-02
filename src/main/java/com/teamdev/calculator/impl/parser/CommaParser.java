@@ -4,6 +4,11 @@ import com.teamdev.calculator.impl.*;
 import static com.teamdev.calculator.impl.parser.MathExpressionSymbols.COMMA;
 
 public class CommaParser implements MathExpressionParser {
+    /**
+     * Parses the comma.
+     * @param context
+     * @return Evaluation command.
+     */
     @Override
     public EvaluationCommand parse(EvaluationContext context) {
 

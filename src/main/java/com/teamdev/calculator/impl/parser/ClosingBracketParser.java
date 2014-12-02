@@ -6,7 +6,11 @@ import com.teamdev.calculator.impl.*;
 import static com.teamdev.calculator.impl.parser.MathExpressionSymbols.CLOSING_BRACKET;
 
 public class ClosingBracketParser implements MathExpressionParser {
-
+    /**
+     * Parses the closing bracket.
+     * @param context
+     * @return Evaluation command.
+     */
     @Override
     public EvaluationCommand parse(final EvaluationContext context) {
 
@@ -17,9 +21,7 @@ public class ClosingBracketParser implements MathExpressionParser {
         }
 
         if (expressionReader.currentChar() == CLOSING_BRACKET.getSymbol()) {
-
             expressionReader.incrementIndex(1);
-
             return new EvaluationCommand() {
                 @Override
                 public void evaluate(EvaluationStack stack) throws EvaluationException {
@@ -28,10 +30,8 @@ public class ClosingBracketParser implements MathExpressionParser {
                         throw new EvaluationException("Opening bracket expected.",
                                 expressionReader.getIndex());
                     }
-
                     stack.pushClosingBracket(context);
-
-                    //при закрытии скобки берем из стека текущее состояние функции
+                    //at the closing brackets take from the current state of the stack function.
                     context.setFunctionFlag(context.getEvaluationStack().getFlagStack().pop());
                 }
             };

@@ -53,8 +53,7 @@ public class CalculatorTest {
         assertEquals(584.7178, result);
     }
 
-    @Test
-            (expected = EvaluationException.class)
+    @Test (expected = EvaluationException.class)
     public void testEndOperator() throws EvaluationException {
         String testExpression = "3-4-";
         final StateMachineCalculator calculator = new StateMachineCalculator();

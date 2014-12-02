@@ -37,10 +37,6 @@ public class EvaluationContext implements StateMachineContext<State,
         isTempFunction = flag;
     }
 
-//    public void setBracketFlag() {
-//        isFunction = false;
-//    }
-
     public EvaluationContext(String mathExpression) {
         expressionReader = new MathExpressionReader(mathExpression);
     }

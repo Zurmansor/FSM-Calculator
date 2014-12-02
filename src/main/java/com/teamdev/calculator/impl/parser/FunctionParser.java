@@ -3,27 +3,30 @@ package com.teamdev.calculator.impl.parser;
 import com.teamdev.calculator.impl.*;
 
 public class FunctionParser implements MathExpressionParser{
+    /**
+     * Parses the function.
+     * @param context
+     * @return Evaluation command.
+     */
     @Override
     public EvaluationCommand parse(final EvaluationContext context) {
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final FunctionFactory factory = context.getFunctionFactory();
 
-        // осташееся выражение после последнего парсера
+        // remaining expression after the last parser
         final String remainingExpression = expressionReader.getRemainingExpression();
-        // проход по всем существующим бинарным операциями
+        // pass on all existing binary operations
         for (String presentation : factory.getAvailableFunctionPresentations()) {
-            // если оставшееся выражение начинается с символа операции (одной из)...
+            // if the remaining expression begins with a step
             if (remainingExpression.startsWith(presentation)) {
-
                 expressionReader.incrementIndex(presentation.length());
-
                 final Function function = factory.create(presentation);
 
                 return new EvaluationCommand() {
                     @Override
                     public void evaluate(EvaluationStack stack) {
                         stack.pushFunction(function);
-                        // говорим, что следующая скобка будет функциональной
+                        // announces that the next bracket will be functional
                         context.setTempFunctionFlag(true);
                     }
                 };

@@ -1,6 +1,5 @@
 package com.teamdev.fsm;
 
-import com.teamdev.calculator.impl.EvaluationContext;
 
 public abstract class FiniteStateMachine<State extends Enum,
         Context extends StateMachineContext<State, Context, TransitionError>,

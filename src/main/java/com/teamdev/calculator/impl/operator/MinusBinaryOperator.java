@@ -14,6 +14,12 @@ public class MinusBinaryOperator extends AbstractBinaryOperator {
         return LOW;
     }
 
+    /**
+     * Subtraction of input parameters
+     * @param leftOperand
+     * @param rightOperand
+     * @return result of subtraction
+     */
     @Override
     public double calculate(double leftOperand, double rightOperand) {
         return leftOperand - rightOperand;

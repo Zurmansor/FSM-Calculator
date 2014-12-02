@@ -5,7 +5,11 @@ import com.teamdev.calculator.impl.*;
 import static com.teamdev.calculator.impl.parser.MathExpressionSymbols.OPENING_BRACKET;
 
 public class OpeningBracketParser implements MathExpressionParser {
-
+    /**
+     * Parses the opening bracket.
+     * @param context
+     * @return
+     */
     @Override
     public EvaluationCommand parse(final EvaluationContext context) {
 

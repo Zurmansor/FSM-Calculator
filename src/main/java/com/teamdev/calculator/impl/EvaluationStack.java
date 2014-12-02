@@ -4,7 +4,6 @@ import com.teamdev.calculator.EvaluationException;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Deque;
 
 public class EvaluationStack {

@@ -1,6 +1,5 @@
 import com.teamdev.calculator.impl.EvaluationCommand;
 import com.teamdev.calculator.impl.EvaluationContext;
-import com.teamdev.calculator.impl.EvaluationService;
 import com.teamdev.calculator.impl.MathExpressionParser;
 import com.teamdev.calculator.impl.parser.NumberParser;
 import org.junit.Ignore;

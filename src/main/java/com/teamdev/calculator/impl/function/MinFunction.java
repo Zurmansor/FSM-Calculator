@@ -2,6 +2,11 @@ package com.teamdev.calculator.impl.function;
 
 
 public class MinFunction extends  AbstractFunction{
+    /**
+     * Considers the smaller of two values.
+     * @param args
+     * @return minimum of input parameters.
+     */
     @Override
     public double perform(Double... args) {
         double result = Double.MAX_VALUE;

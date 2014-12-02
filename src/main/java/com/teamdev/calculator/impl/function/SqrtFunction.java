@@ -3,6 +3,12 @@ package com.teamdev.calculator.impl.function;
 import com.teamdev.calculator.EvaluationException;
 
 public class SqrtFunction extends  AbstractFunction{
+    /**
+     * Considers the cube root of a value.
+     * @param args
+     * @return the cube root of input parameter.
+     * @throws EvaluationException
+     */
     @Override
     public double perform(Double... args) throws EvaluationException {
         if (args.length > 1) {

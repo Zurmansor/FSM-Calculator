@@ -1,6 +1,5 @@
 package com.teamdev.calculator.impl.parser;
 
-import com.teamdev.calculator.EvaluationException;
 import com.teamdev.calculator.impl.*;
 
 import java.text.DecimalFormat;
@@ -12,6 +11,11 @@ public class NumberParser implements MathExpressionParser {
 
     private final NumberFormat numberFormat = DecimalFormat.getNumberInstance(Locale.US);
 
+    /**
+     * Parses the number.
+     * @param context
+     * @return Evaluation command.
+     */
     @Override
     public EvaluationCommand parse(EvaluationContext context) {
 

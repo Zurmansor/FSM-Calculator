@@ -14,6 +14,12 @@ public class MultiplyBinaryOperator extends AbstractBinaryOperator {
         return MEDIUM;
     }
 
+    /**
+     * Multiplication of input parameters
+     * @param leftOperand
+     * @param rightOperand
+     * @return result of multiplication
+     */
     @Override
     public double calculate(double leftOperand, double rightOperand) {
         return leftOperand * rightOperand;
