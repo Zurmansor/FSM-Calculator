@@ -12,33 +12,45 @@ public class EvaluationContext implements StateMachineContext<State,
     private final EvaluationService evaluationService = new EvaluationService();
     private final BinaryOperatorFactory binaryOperatorFactory = new BinaryOperatorFactory();
     private final FunctionFactory functionFactory = new FunctionFactory();
-
     private final EvaluationStack evaluationStack = new EvaluationStack();
-
-
     private final MathExpressionReader expressionReader;
-
     private boolean isFunction = false;
     private boolean isTempFunction = false;
 
+    public EvaluationContext(String mathExpression) {
+        expressionReader = new MathExpressionReader(mathExpression);
+    }
+
+    /**
+     * Determination if we're inside a function or in ordinary brackets.
+     * @return
+     */
     public boolean isFunction() {
         return isFunction;
     }
 
+    /**
+     * Setting a flag if we in functional brackets.
+     * @param flag
+     */
     public void setFunctionFlag(Boolean flag) {
         isFunction = flag;
     }
 
+    /**
+     * Determination state flag previous brackets.
+     * @return
+     */
     public boolean isTempFunction() {
         return isTempFunction;
     }
 
+    /**
+     * Setting a flag for the previous brackets.
+     * @param flag
+     */
     public void setTempFunctionFlag(Boolean flag) {
         isTempFunction = flag;
-    }
-
-    public EvaluationContext(String mathExpression) {
-        expressionReader = new MathExpressionReader(mathExpression);
     }
 
     public MathExpressionReader getExpressionReader() {

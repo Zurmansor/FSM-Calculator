@@ -13,8 +13,6 @@ public class StateMachineCalculator extends FiniteStateMachine<
 
     private final static boolean UI = true;
 
-//    private MainForm mainForm;
-
     @Override
     public double evaluate(String mathExpression) throws EvaluationException {
         return run(new EvaluationContext(mathExpression));
@@ -57,7 +55,7 @@ public class StateMachineCalculator extends FiniteStateMachine<
                 while (indent.length() < e.getErrorIndex()) {
                     indent += " ";
                 }
-                System.out.println(indent + (char)(8593)); // код стрелки вверх
+                System.out.println(indent + (char)(8593)); // code up arrow
                 System.out.println("Calculation error: " + e.getMessage());
                 System.out.println("at position " + e.getErrorIndex());
             }

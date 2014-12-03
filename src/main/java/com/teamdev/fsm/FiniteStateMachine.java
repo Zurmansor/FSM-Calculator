@@ -32,7 +32,7 @@ public abstract class FiniteStateMachine<State extends Enum,
                 return possibleState;
             }
         }
-        // если сейчас функция то нужно проверить еще возможные состояния переходов (get Possible Function States)
+        // Now if you need to check the function of another possible state transitions (get Possible Function States)
 
        if (context.isFunction()) {
            for (State possibleState : matrix.getPossibleFunctionStates(currentState)) {

@@ -14,17 +14,14 @@ public class BinaryOperatorParser implements MathExpressionParser {
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final BinaryOperatorFactory factory = context.getBinaryOperatorFactory();
 
-        // осташееся выражение после последнего парсера
+        // remaining expression after the last parser
         final String remainingExpression = expressionReader.getRemainingExpression();
-        // проход по всем существующим бинарным операциями
+        // pass on all existing binary operations
         for (String presentation : factory.getAvailableOperatorPresentations()) {
-            // если оставшееся выражение начинается с символа операции (одной из)...
+            // if the remaining expression begins with an operation.
             if (remainingExpression.startsWith(presentation)) {
-
                 expressionReader.incrementIndex(presentation.length());
-
                 final BinaryOperator binaryOperator = factory.create(presentation);
-
                 return new EvaluationCommand() {
                     @Override
                     public void evaluate(EvaluationStack stack) {

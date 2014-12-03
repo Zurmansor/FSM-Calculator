@@ -16,10 +16,19 @@ public class FunctionFactory {
         put("abs", new AbsFunction());
     }};
 
+    /**
+     * Creates an element of a given type.
+     * @param functionPresentation
+     * @return
+     */
     public Function create(String functionPresentation) {
         return registry.get(functionPresentation);
     }
 
+    /**
+     * Returns all existing functions in the factory.
+     * @return
+     */
     public Set<String> getAvailableFunctionPresentations() {
         return registry.keySet();
     }

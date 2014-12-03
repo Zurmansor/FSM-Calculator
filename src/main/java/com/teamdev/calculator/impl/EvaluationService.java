@@ -10,7 +10,9 @@ import java.util.Map;
 import static com.teamdev.calculator.impl.State.*;
 
 public class EvaluationService implements StateAcceptor<State, EvaluationContext, EvaluationException> {
-
+    /**
+     * State table and the corresponding parser for it.
+     */
     private final Map<State, MathExpressionParser> parsers = new HashMap<State, MathExpressionParser>() {{
         put(NUMBER, new NumberParser());
         put(BINARY_OPERATOR, new BinaryOperatorParser());
@@ -21,7 +23,13 @@ public class EvaluationService implements StateAcceptor<State, EvaluationContext
         put(FINISH, new EndOfExpressionParser());
     }};
 
-
+    /**
+     * Return true if successful parse the current state.
+     * @param context
+     * @param possibleState
+     * @return
+     * @throws EvaluationException
+     */
     @Override
     public boolean acceptState(EvaluationContext context, State possibleState) throws EvaluationException {
 

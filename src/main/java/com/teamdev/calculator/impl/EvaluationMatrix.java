@@ -29,21 +29,39 @@ public class EvaluationMatrix implements TransitionMatrix<State> {
         put(CLOSING_BRACKET, of(COMMA));
     }};
 
+    /**
+     * Returns the initial state Start.
+     * @return
+     */
     @Override
     public State getStartState() {
         return START;
     }
 
+    /**
+     * Returns the final state.
+     * @return
+     */
     @Override
     public State getFinishState() {
         return FINISH;
     }
 
+    /**
+     * Returns the Set of all possible states.
+     * @param state
+     * @return
+     */
     @Override
     public Set<State> getPossibleStates(State state) {
         return transitions.get(state);
     }
 
+    /**
+     * Returns the Set of all possible states of functions.
+     * @param state
+     * @return
+     */
     @Override
     public Set<State> getPossibleFunctionStates(State state) {
         return functionTransitions.get(state);
