@@ -1,7 +1,5 @@
-import com.teamdev.calculator.EvaluationException;
-import com.teamdev.calculator.impl.EvaluationCommand;
-import com.teamdev.calculator.impl.EvaluationContext;
-import com.teamdev.calculator.impl.StateMachineCalculator;
+import com.teamdev.nastya.shirokovskaya.calculator.EvaluationException;
+import com.teamdev.nastya.shirokovskaya.calculator.impl.StateMachineCalculator;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
