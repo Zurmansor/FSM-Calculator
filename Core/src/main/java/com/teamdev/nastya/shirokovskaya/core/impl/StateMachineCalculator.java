@@ -3,9 +3,9 @@ package com.teamdev.nastya.shirokovskaya.core.impl;
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.MathExpressionCalculator;
 import com.teamdev.nastya.shirokovskaya.fsm.FiniteStateMachine;
-//import com.teamdev.nastya.shirokovskaya.mvc.controller.Controller;
-//import com.teamdev.nastya.shirokovskaya.mvc.model.Model;
-//import com.teamdev.nastya.shirokovskaya.mvc.view.View;
+//import mvc.controller.Controller;
+//import mvc.model.Model;
+//import mvc.view.View;
 
 public class StateMachineCalculator extends FiniteStateMachine<
         State, EvaluationContext, Double, EvaluationException>
