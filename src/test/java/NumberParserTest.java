@@ -1,7 +1,7 @@
-import com.teamdev.nastya.shirokovskaya.calculator.impl.EvaluationCommand;
-import com.teamdev.nastya.shirokovskaya.calculator.impl.EvaluationContext;
-import com.teamdev.nastya.shirokovskaya.calculator.impl.MathExpressionParser;
-import com.teamdev.nastya.shirokovskaya.calculator.impl.parser.NumberParser;
+import com.teamdev.nastya.shirokovskaya.core.impl.EvaluationCommand;
+import com.teamdev.nastya.shirokovskaya.core.impl.EvaluationContext;
+import com.teamdev.nastya.shirokovskaya.core.impl.MathExpressionParser;
+import com.teamdev.nastya.shirokovskaya.core.impl.parser.NumberParser;
 import org.junit.Ignore;
 import org.junit.Test;
 import static junit.framework.Assert.*;

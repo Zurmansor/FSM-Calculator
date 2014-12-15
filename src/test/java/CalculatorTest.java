@@ -1,5 +1,5 @@
-import com.teamdev.nastya.shirokovskaya.calculator.EvaluationException;
-import com.teamdev.nastya.shirokovskaya.calculator.impl.StateMachineCalculator;
+import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
+import com.teamdev.nastya.shirokovskaya.core.impl.StateMachineCalculator;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
@@ -52,7 +52,7 @@ public class CalculatorTest {
     }
 
     @Test (expected = EvaluationException.class)
-    public void testEndOperator() throws EvaluationException {
+    public void testUnfinishedExpression() throws EvaluationException {
         String testExpression = "3-4-";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
