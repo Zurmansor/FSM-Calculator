@@ -22,7 +22,7 @@ public class EndOfExpressionParser implements MathExpressionParser {
             public void evaluate(EvaluationStack stack) throws EvaluationException {
 
                 if (!stack.getBracketStack().isEmpty()) {
-                    throw new EvaluationException("Closing bracket expected.", reader.getIndex());
+                    throw new EvaluationException("Closing bracket expected", reader.getIndex());
                 }
 
                 stack.popAllOperators();

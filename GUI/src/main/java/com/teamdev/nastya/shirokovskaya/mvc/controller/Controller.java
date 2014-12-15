@@ -24,7 +24,7 @@ public class Controller {
         JButton calculateBtn = view.getCalculateBtn();
         ActionListener actionListener = new ActionListener() {
             public void actionPerformed(ActionEvent arg0) {
-                buttonEvent();
+                calculateButtonEvent();
             }
         };
         calculateBtn.addActionListener(actionListener);
@@ -42,7 +42,7 @@ public class Controller {
             public void keyPressed(KeyEvent e) {
                 // если нажа ENTER, отправляем выражение как по кнопке Calculate
                 if (e.getKeyCode()==KeyEvent.VK_ENTER){
-                    buttonEvent();
+                    calculateButtonEvent();
                 }
             }
 
@@ -54,7 +54,7 @@ public class Controller {
         expressionField.addKeyListener(keyListener);
     }
 
-    public void buttonEvent(){
+    public void calculateButtonEvent(){
         String mathExpression = view.getExpression();
         double result = 0;
         try {

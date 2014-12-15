@@ -27,7 +27,7 @@ public class ClosingBracketParser implements MathExpressionParser {
                 public void evaluate(EvaluationStack stack) throws EvaluationException {
 
                     if (stack.getBracketStack().isEmpty()) {
-                        throw new EvaluationException("Opening bracket expected.",
+                        throw new EvaluationException("Opening bracket expected",
                                 expressionReader.getIndex());
                     }
                     stack.pushClosingBracket(context);

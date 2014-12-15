@@ -20,7 +20,7 @@ public class StateMachineCalculator extends FiniteStateMachine<
 
     @Override
     protected void deadlock(EvaluationContext context, State currentState) throws EvaluationException {
-        throw new EvaluationException("Incorrect expression format.",
+        throw new EvaluationException("Incorrect expression format",
                 context.getExpressionReader().getIndex());
     }
 

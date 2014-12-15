@@ -14,6 +14,7 @@
         <module>Core</module>
         <module>FiniteStateMachine</module>
         <module>GUI</module>
+        <module>Console</module>
     </modules>
 
     <dependencies>
