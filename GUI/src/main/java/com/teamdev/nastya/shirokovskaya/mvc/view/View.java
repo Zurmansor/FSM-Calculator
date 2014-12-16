@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class View {
-    final private int FORM_WIDTH = 450;
+    final private int FORM_WIDTH = 480;
     final private int FORM_HEIGHT = 130;
 
     private JLabel expressionLabel;
@@ -35,8 +35,8 @@ public class View {
         expressionLabel.setBounds(10, 10, 130, 20);
         resultLabel.setBounds(10, 35, 130, 20);
 
-        expressionField.setBounds(150, 10, 280, 20);
-        resultField.setBounds(150, 35, 280, 20);
+        expressionField.setBounds(150, 10, 300, 20);
+        resultField.setBounds(150, 35, 300, 20);
 
         calculateBtn.setBounds(150, 70, 150, 20);
 

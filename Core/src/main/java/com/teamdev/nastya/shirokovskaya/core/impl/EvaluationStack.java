@@ -11,7 +11,7 @@ public class EvaluationStack {
     private final Deque<BinaryOperator> operatorStack = new ArrayDeque<BinaryOperator>();
     private final Deque<Integer> bracketStack = new ArrayDeque<Integer>();
     private final Deque<Function> functionStack = new ArrayDeque<Function>();
-    private final Deque<Boolean> flagStack = new ArrayDeque<Boolean>();
+    private final Deque<Boolean> functionStatusStack = new ArrayDeque<Boolean>();
 
 
     public Deque<Double> getOperandStack() {
@@ -30,8 +30,8 @@ public class EvaluationStack {
         return functionStack;
     }
 
-    public Deque<Boolean> getFlagStack() {
-        return flagStack;
+    public Deque<Boolean> getFunctionStatusStack() {
+        return functionStatusStack;
     }
 
     /**
@@ -59,11 +59,11 @@ public class EvaluationStack {
     }
 
     /**
-     * Places the current flag in the flagStack.
-     * @param flag
+     * Places the current status in the functionStatusStack.
+     * @param status
      */
-    public void pushFlag(Boolean flag){
-        flagStack.push(flag);
+    public void pushStatus(Boolean status){
+        functionStatusStack.push(status);
     }
 
     /**
@@ -91,12 +91,13 @@ public class EvaluationStack {
      * @param context
      */
     public void pushOpeningBracket(EvaluationContext context) {
-        if (context.isFunction()){
+        if (context.getCurrentFunctionStatus()){
             bracketStack.push(operandStack.size());
             bracketStack.push(operatorStack.size());
         } else {
             bracketStack.push(operatorStack.size());
         }
+        
     }
 
     /**
@@ -111,8 +112,8 @@ public class EvaluationStack {
         while (operatorStack.size() > operatorStackSize) {
             executeTopOperator();
         }
-        // handle bracket as usual , and then check whether it is functional
-        if (context.isFunction()) {
+        // handle bracket as usual, and then check whether it is functional
+        if (context.getCurrentFunctionStatus()) {
             final Integer operandStackSize = bracketStack.pop();
 
             final ArrayList<Double> args = new ArrayList<Double>();
@@ -121,9 +122,16 @@ public class EvaluationStack {
             }
 
             final Function function = functionStack.peek();
-            final double result = function.perform((Double[]) args.toArray(new Double[args.size()]));
-            operandStack.push(result);
-            functionStack.pop();
+            try{
+                final double result = function.perform((Double[]) args.toArray(new Double[args.size()]));
+                operandStack.push(result);
+                functionStack.pop();
+            } catch (IllegalStateException e){
+                throw new EvaluationException(e.getMessage(), context.getExpressionReader().getIndex());
+            } catch (IllegalArgumentException e) {
+                throw new EvaluationException(e.getMessage(), context.getExpressionReader().getIndex());
+            }
+
         }
     }
 

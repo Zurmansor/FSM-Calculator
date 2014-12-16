@@ -32,7 +32,7 @@ public class ClosingBracketParser implements MathExpressionParser {
                     }
                     stack.pushClosingBracket(context);
                     //at the closing brackets take from the current state of the stack function.
-                    context.setFunctionFlag(context.getEvaluationStack().getFlagStack().pop());
+                    context.setCurrentFunctionStatus(context.getEvaluationStack().getFunctionStatusStack().pop());
                 }
             };
         }

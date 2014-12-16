@@ -8,5 +8,5 @@ public interface StateMachineContext<State extends Enum,
 
     StateAcceptor<State, Context, TransitionError> getStateAcceptor();
 
-    boolean isFunction();
+    boolean getCurrentFunctionStatus();
 }

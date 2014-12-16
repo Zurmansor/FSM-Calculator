@@ -29,16 +29,16 @@ public class StateMachineCalculator extends FiniteStateMachine<
         return context.getEvaluationStack().getOperandStack().pop();
     }
 
-    public double start(String mathExpression) throws EvaluationException{
+/*    public double start(String mathExpression) throws EvaluationException{
         final StateMachineCalculator calculator = new StateMachineCalculator();
             final double result = calculator.evaluate(mathExpression);
             return result;
-    }
+    }*/
 
     public static void main(String[] args) {
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-//        if (UI) {
+/*//        if (UI) {
 //            Model model = new Model();
 //            View view = new View();
 //            Controller controller = new Controller(model, view);
@@ -58,7 +58,7 @@ public class StateMachineCalculator extends FiniteStateMachine<
                 System.out.println(indent + (char)(8593)); // code up arrow
                 System.out.println("Calculation error: " + e.getMessage());
                 System.out.println("at position " + e.getErrorIndex());
-            }
+            }*/
 //        }
     }
 

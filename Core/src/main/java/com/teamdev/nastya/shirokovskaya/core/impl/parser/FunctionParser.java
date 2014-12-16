@@ -27,7 +27,7 @@ public class FunctionParser implements MathExpressionParser {
                     public void evaluate(EvaluationStack stack) {
                         stack.pushFunction(function);
                         // announces that the next bracket will be functional
-                        context.setTempFunctionFlag(true);
+                        context.setPreviousFunctionStatus(true);
                     }
                 };
             }

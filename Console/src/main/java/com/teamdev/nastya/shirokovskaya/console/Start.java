@@ -15,7 +15,7 @@ public class Start {
             final StateMachineCalculator calculator = new StateMachineCalculator();
 
             try {
-                double result = calculator.start(mathExpression);
+                double result = calculator.evaluate(mathExpression);
                 System.out.println(result);
             } catch (EvaluationException e) {
                 System.out.println(Strings.padStart((char)(8593)+"", e.getErrorIndex(), ' '));

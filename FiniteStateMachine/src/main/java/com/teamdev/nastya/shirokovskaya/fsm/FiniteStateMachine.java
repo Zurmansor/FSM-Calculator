@@ -34,7 +34,7 @@ public abstract class FiniteStateMachine<State extends Enum,
         }
         // Now if you need to check the function of another possible state transitions (get Possible Function States)
 
-       if (context.isFunction()) {
+       if (context.getCurrentFunctionStatus()) {
            for (State possibleState : matrix.getPossibleFunctionStates(currentState)) {
                if (stateAcceptor.acceptState(context, possibleState)) {
                    return possibleState;

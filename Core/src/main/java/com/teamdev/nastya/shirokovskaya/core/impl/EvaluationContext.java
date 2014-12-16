@@ -8,14 +8,14 @@ import com.teamdev.nastya.shirokovskaya.fsm.TransitionMatrix;
 public class EvaluationContext implements StateMachineContext<State,
         EvaluationContext, EvaluationException> {
 
+    private boolean currentFunctionStatus = false;
+    private boolean previousFunctionStatus = false;
     private final EvaluationMatrix matrix = new EvaluationMatrix();
     private final EvaluationService evaluationService = new EvaluationService();
     private final BinaryOperatorFactory binaryOperatorFactory = new BinaryOperatorFactory();
     private final FunctionFactory functionFactory = new FunctionFactory();
     private final EvaluationStack evaluationStack = new EvaluationStack();
     private final MathExpressionReader expressionReader;
-    private boolean isFunction = false;
-    private boolean isTempFunction = false;
 
     public EvaluationContext(String mathExpression) {
         expressionReader = new MathExpressionReader(mathExpression);
@@ -25,32 +25,32 @@ public class EvaluationContext implements StateMachineContext<State,
      * Determination if we're inside a function or in ordinary brackets.
      * @return
      */
-    public boolean isFunction() {
-        return isFunction;
+    public boolean getCurrentFunctionStatus() {
+        return currentFunctionStatus;
     }
 
     /**
-     * Setting a flag if we in functional brackets.
-     * @param flag
+     * Determination of current brackets status.
+     * @param status
      */
-    public void setFunctionFlag(Boolean flag) {
-        isFunction = flag;
+    public void setCurrentFunctionStatus(Boolean status) {
+        currentFunctionStatus = status;
     }
 
     /**
-     * Determination state flag previous brackets.
+     * Determination of previous brackets status.
      * @return
      */
-    public boolean isTempFunction() {
-        return isTempFunction;
+    public boolean getPreviousFunctionStatus() {
+        return previousFunctionStatus;
     }
 
     /**
-     * Setting a flag for the previous brackets.
-     * @param flag
+     * Setting a status for the previous brackets.
+     * @param status
      */
-    public void setTempFunctionFlag(Boolean flag) {
-        isTempFunction = flag;
+    public void setPreviousFunctionStatus(Boolean status) {
+        previousFunctionStatus = status;
     }
 
     public MathExpressionReader getExpressionReader() {
