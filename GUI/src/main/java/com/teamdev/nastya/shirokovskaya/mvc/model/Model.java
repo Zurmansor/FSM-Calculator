@@ -7,6 +7,6 @@ public class Model {
 
     public double calcExpression(String mathExpression) throws EvaluationException {
         final StateMachineCalculator calculator = new StateMachineCalculator();
-        return calculator.start(mathExpression);
+        return calculator.evaluate(mathExpression);
     }
 }

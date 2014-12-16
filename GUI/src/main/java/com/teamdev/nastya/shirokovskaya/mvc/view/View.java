@@ -5,39 +5,46 @@ import java.awt.*;
 
 public class View {
     final private int FORM_WIDTH = 450;
-    final private int FORM_HEIGHT = 120;
+    final private int FORM_HEIGHT = 130;
 
-    private JPanel fieldsPanel;
-    private JPanel errorPanel;
-    private JButton calculateBtn;
+    private JLabel expressionLabel;
     private JTextField expressionField;
-    private JLabel solutionLabel;
-    private JLabel errorLabel;
+    private JLabel resultLabel;
+    private JLabel resultField;
+    private JButton calculateBtn;
 
     public View() {
         JFrame frame = new JFrame("Calculator");
-        fieldsPanel = new JPanel();
-        errorPanel = new JPanel();
         calculateBtn = new JButton("Calculate");
         expressionField = new JTextField(20);
-        solutionLabel = new JLabel();
-        errorLabel = new JLabel("error");
+
+        expressionLabel = new JLabel("Enter the expression:");
+        resultLabel = new JLabel("Result:");
+        resultField = new JLabel("");
 
         frame.setSize(FORM_WIDTH, FORM_HEIGHT);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setLayout(null);
 
-        errorLabel.setForeground(Color.RED);
-        errorLabel.setVisible(false);
+        resultLabel.setHorizontalAlignment(SwingConstants.RIGHT);
+        expressionLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        fieldsPanel.add(expressionField);
-        fieldsPanel.add(solutionLabel);
+        resultField.setBackground(Color.RED);
 
-        errorPanel.add(fieldsPanel,BorderLayout.NORTH);
-        errorPanel.add(errorLabel, BorderLayout.CENTER);
+        expressionLabel.setBounds(10, 10, 130, 20);
+        resultLabel.setBounds(10, 35, 130, 20);
 
-        frame.add(calculateBtn, BorderLayout.SOUTH);
-        frame.add(errorPanel,BorderLayout.CENTER);
+        expressionField.setBounds(150, 10, 280, 20);
+        resultField.setBounds(150, 35, 280, 20);
+
+        calculateBtn.setBounds(150, 70, 150, 20);
+
+        frame.add(expressionLabel);
+        frame.add(expressionField);
+        frame.add(resultLabel);
+        frame.add(resultField);
+        frame.add(calculateBtn);
 
         frame.setVisible(true);
     }
@@ -55,15 +62,13 @@ public class View {
     }
 
     public void setResult (double result) {
-        solutionLabel.setText(String.valueOf(result));
-        errorLabel.setVisible(false);
-        errorLabel.setText("");
+        resultField.setForeground(Color.BLACK);
+        resultField.setText(String.valueOf(result));
     }
 
     public void setError (String error, int position) {
-        solutionLabel.setText("err");
-        errorLabel.setText(error + " at position " + position);
-        errorLabel.setVisible(true);
+        resultField.setForeground(Color.RED);
+        resultField.setText(error + " at position " + position);
         expressionField.setCaretPosition(position);
         expressionField.requestFocus();
     }
