@@ -1,5 +1,7 @@
 package com.teamdev.nastya.shirokovskaya.core.impl;
 
+import com.google.common.base.Optional;
+
 public interface MathExpressionParser {
-    EvaluationCommand parse(EvaluationContext context);
+    Optional<EvaluationCommand> parse(EvaluationContext context);
 }

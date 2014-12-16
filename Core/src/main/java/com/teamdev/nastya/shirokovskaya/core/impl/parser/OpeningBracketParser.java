@@ -1,5 +1,6 @@
 package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 
+import com.google.common.base.Optional;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
 public class OpeningBracketParser implements MathExpressionParser {
@@ -9,19 +10,19 @@ public class OpeningBracketParser implements MathExpressionParser {
      * @return
      */
     @Override
-    public EvaluationCommand parse(final EvaluationContext context) {
+    public Optional<EvaluationCommand> parse(final EvaluationContext context) {
 
         final MathExpressionReader expressionReader = context.getExpressionReader();
 
         if (expressionReader.endOfExpression()) {
-            return null;
+            return Optional.absent();
         }
 
         if (expressionReader.currentChar() == MathExpressionSymbols.OPENING_BRACKET.getSymbol()) {
 
             expressionReader.incrementIndex(1);
 
-            return new EvaluationCommand() {
+            EvaluationCommand evaluationCommand = new EvaluationCommand() {
                 @Override
                 public void evaluate(EvaluationStack stack) {
                     //сохраняем в стек флагов текущее состояние флага
@@ -32,8 +33,9 @@ public class OpeningBracketParser implements MathExpressionParser {
                     stack.pushOpeningBracket(context);
                 }
             };
+            return Optional.of(evaluationCommand);
         }
 
-        return null;
+        return Optional.absent();
     }
 }

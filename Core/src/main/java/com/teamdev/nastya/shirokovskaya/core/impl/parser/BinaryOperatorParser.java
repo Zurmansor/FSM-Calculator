@@ -1,5 +1,6 @@
 package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 
+import com.google.common.base.Optional;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
 public class BinaryOperatorParser implements MathExpressionParser {
@@ -9,7 +10,7 @@ public class BinaryOperatorParser implements MathExpressionParser {
      * @return Evaluation command.
      */
     @Override
-    public EvaluationCommand parse(EvaluationContext context) {
+    public Optional<EvaluationCommand> parse(EvaluationContext context) {
 
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final BinaryOperatorFactory factory = context.getBinaryOperatorFactory();
@@ -22,15 +23,16 @@ public class BinaryOperatorParser implements MathExpressionParser {
             if (remainingExpression.startsWith(presentation)) {
                 expressionReader.incrementIndex(presentation.length());
                 final BinaryOperator binaryOperator = factory.create(presentation);
-                return new EvaluationCommand() {
+                EvaluationCommand evaluationCommand = new EvaluationCommand() {
                     @Override
                     public void evaluate(EvaluationStack stack) {
                         stack.pushOperator(binaryOperator);
                     }
                 };
+                return Optional.of(evaluationCommand);
             }
         }
 
-        return null;
+        return Optional.absent();
     }
 }

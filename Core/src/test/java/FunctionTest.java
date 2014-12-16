@@ -100,18 +100,23 @@ public class FunctionTest {
     public void testFunctionSqrtException() throws EvaluationException {
         String testExpression = "sqrt(4, 8)";
         final StateMachineCalculator calculator = new StateMachineCalculator();
+        calculator.evaluate(testExpression);
+    }
 
-        final double result = calculator.evaluate(testExpression);
-//        assertEquals(2.0, result);
+    @Test(expected=EvaluationException.class)
+    public void testFunctionNegativeArgumentSqrt() throws EvaluationException {
+        String testExpression = "sqrt(-9)";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+        calculator.evaluate(testExpression);
     }
 
     @Test
-    public void testFunctionSqrtMin() throws EvaluationException {
-        String testExpression = "sqrt(min(174, 81, 357))";
+    public void testFunctionSqrtOfSqrt() throws EvaluationException {
+        String testExpression = "sqrt(sqrt(81))";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
         final double result = calculator.evaluate(testExpression);
-        assertEquals(9.0, result);
+        assertEquals(3.0, result);
     }
 
     @Test
@@ -123,6 +128,13 @@ public class FunctionTest {
         assertEquals(20.0, result);
     }
 
+    @Test(expected=EvaluationException.class)
+    public void testFunctionAbsException() throws EvaluationException {
+        String testExpression = "abs(14, -8)";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+        calculator.evaluate(testExpression);
+    }
+
     @Test
     public void testFunctionPowPow() throws EvaluationException {
         String testExpression = "3^2^3";
@@ -132,13 +144,11 @@ public class FunctionTest {
         assertEquals(6561.0, result);
     }
 
-    @Test
-            (expected = EvaluationException.class)
+    @Test(expected = EvaluationException.class)
     public void testComma() throws EvaluationException {
         String testExpression = "1,+ 7";
         final StateMachineCalculator calculator = new StateMachineCalculator();
-
-        final double result = calculator.evaluate(testExpression);
+        calculator.evaluate(testExpression);
     }
 
     @Test
@@ -149,23 +159,6 @@ public class FunctionTest {
         final double result = calculator.evaluate(testExpression);
         assertEquals(-2.0, result);
     }
-    @Test
-    public void testCommaHard() throws EvaluationException {
-        String testExpression = "max(1, 7 + min (5,-3,2))";
-        final StateMachineCalculator calculator = new StateMachineCalculator();
-
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(4.0, result);
-    }
-
-    @Test
-            (expected = EvaluationException.class)
-    public void testCommaHardException() throws EvaluationException {
-        String testExpression = "max(1, 7 + min (5,-3,2), (5,7))";
-        final StateMachineCalculator calculator = new StateMachineCalculator();
-
-        final double result = calculator.evaluate(testExpression);
-    }
 
     @Test(expected = EvaluationException.class)
     public void testEmpty() throws EvaluationException {
@@ -175,4 +168,6 @@ public class FunctionTest {
         final double result = calculator.evaluate(testExpression);
         assertEquals(1.0, result);
     }
+
+
 }

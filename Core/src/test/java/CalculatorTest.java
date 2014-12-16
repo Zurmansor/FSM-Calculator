@@ -3,7 +3,7 @@ import com.teamdev.nastya.shirokovskaya.core.impl.StateMachineCalculator;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
+
 
 public class CalculatorTest {
     @Test

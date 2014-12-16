@@ -13,21 +13,12 @@ public class EvaluationStack {
     private final Deque<Function> functionStack = new ArrayDeque<Function>();
     private final Deque<Boolean> functionStatusStack = new ArrayDeque<Boolean>();
 
-
     public Deque<Double> getOperandStack() {
         return operandStack;
     }
 
-    public Deque<BinaryOperator> getOperatorStack() {
-        return operatorStack;
-    }
-
     public Deque<Integer> getBracketStack() {
         return bracketStack;
-    }
-
-    public Deque<Function> getFunctionStack() {
-        return functionStack;
     }
 
     public Deque<Boolean> getFunctionStatusStack() {

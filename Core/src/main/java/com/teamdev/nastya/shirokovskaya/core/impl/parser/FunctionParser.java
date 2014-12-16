@@ -1,5 +1,6 @@
 package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 
+import com.google.common.base.Optional;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
 public class FunctionParser implements MathExpressionParser {
@@ -9,7 +10,7 @@ public class FunctionParser implements MathExpressionParser {
      * @return Evaluation command.
      */
     @Override
-    public EvaluationCommand parse(final EvaluationContext context) {
+    public Optional<EvaluationCommand> parse(final EvaluationContext context) {
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final FunctionFactory factory = context.getFunctionFactory();
 
@@ -22,7 +23,7 @@ public class FunctionParser implements MathExpressionParser {
                 expressionReader.incrementIndex(presentation.length());
                 final Function function = factory.create(presentation);
 
-                return new EvaluationCommand() {
+                EvaluationCommand evaluationCommand = new EvaluationCommand() {
                     @Override
                     public void evaluate(EvaluationStack stack) {
                         stack.pushFunction(function);
@@ -30,9 +31,10 @@ public class FunctionParser implements MathExpressionParser {
                         context.setPreviousFunctionStatus(true);
                     }
                 };
+                return Optional.of(evaluationCommand);
             }
         }
 
-        return null;
+        return Optional.absent();
     }
 }

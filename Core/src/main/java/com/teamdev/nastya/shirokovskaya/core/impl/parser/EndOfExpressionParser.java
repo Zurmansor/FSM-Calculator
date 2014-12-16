@@ -1,5 +1,6 @@
 package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 
+import com.google.common.base.Optional;
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
@@ -7,17 +8,17 @@ public class EndOfExpressionParser implements MathExpressionParser {
     /**
      * Parses the end of the expression.
      * @param context
-     * @return Null if it`s not the end of expression, otherwise evaluation command.
+     * @return Optional.absent() if it`s not the end of expression, otherwise evaluation command.
      */
     @Override
-    public EvaluationCommand parse(EvaluationContext context) {
+    public Optional<EvaluationCommand> parse(EvaluationContext context) {
         final MathExpressionReader reader = context.getExpressionReader();
 
         if (!reader.endOfExpression()) {
-            return null;
+            return Optional.absent();
         }
 
-        return new EvaluationCommand() {
+        EvaluationCommand evaluationCommand = new EvaluationCommand() {
             @Override
             public void evaluate(EvaluationStack stack) throws EvaluationException {
 
@@ -28,5 +29,6 @@ public class EndOfExpressionParser implements MathExpressionParser {
                 stack.popAllOperators();
             }
         };
+        return Optional.of(evaluationCommand);
     }
 }

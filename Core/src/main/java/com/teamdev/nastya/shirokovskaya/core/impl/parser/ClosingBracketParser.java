@@ -1,5 +1,6 @@
 package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 
+import com.google.common.base.Optional;
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
@@ -12,17 +13,17 @@ public class ClosingBracketParser implements MathExpressionParser {
      * @return Evaluation command.
      */
     @Override
-    public EvaluationCommand parse(final EvaluationContext context) {
+    public Optional<EvaluationCommand> parse(final EvaluationContext context) {
 
         final MathExpressionReader expressionReader = context.getExpressionReader();
 
         if (expressionReader.endOfExpression()) {
-            return null;
+            return Optional.absent();
         }
 
         if (expressionReader.currentChar() == CLOSING_BRACKET.getSymbol()) {
             expressionReader.incrementIndex(1);
-            return new EvaluationCommand() {
+            EvaluationCommand evaluationCommand = new EvaluationCommand() {
                 @Override
                 public void evaluate(EvaluationStack stack) throws EvaluationException {
 
@@ -35,8 +36,9 @@ public class ClosingBracketParser implements MathExpressionParser {
                     context.setCurrentFunctionStatus(context.getEvaluationStack().getFunctionStatusStack().pop());
                 }
             };
+            return Optional.of(evaluationCommand);
         }
 
-        return null;
+        return Optional.absent();
     }
 }

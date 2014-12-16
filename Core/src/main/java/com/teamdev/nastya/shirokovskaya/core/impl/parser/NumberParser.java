@@ -1,10 +1,10 @@
 package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 
+import com.google.common.base.Optional;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.text.ParsePosition;
 import java.util.Locale;
 
@@ -15,10 +15,10 @@ public class NumberParser implements MathExpressionParser {
     /**
      * Parses the number.
      * @param context
-     * @return Evaluation command.
+     * @return Optional<EvaluationCommand>.
      */
     @Override
-    public EvaluationCommand parse(EvaluationContext context) {
+    public Optional<EvaluationCommand> parse(EvaluationContext context) {
 
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final String mathExpression = expressionReader.getMathExpression();
@@ -31,16 +31,18 @@ public class NumberParser implements MathExpressionParser {
 
         final Number number = numberFormat.parse(mathExpression, parsePosition);
         if (parsePosition.getErrorIndex() != -1) {
-            return null;
+            return Optional.absent();
         }
 
         expressionReader.setIndex(parsePosition.getIndex());
 
-        return new EvaluationCommand() {
+        EvaluationCommand evaluationCommand = new EvaluationCommand() {
             @Override
             public void evaluate(EvaluationStack stack) {
                 stack.getOperandStack().push(number.doubleValue());
             }
         };
+
+        return Optional.of(evaluationCommand);
     }
 }

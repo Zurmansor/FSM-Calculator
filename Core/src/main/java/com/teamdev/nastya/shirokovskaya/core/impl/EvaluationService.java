@@ -1,5 +1,6 @@
 package com.teamdev.nastya.shirokovskaya.core.impl;
 
+import com.google.common.base.Optional;
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.parser.*;
 import com.teamdev.nastya.shirokovskaya.fsm.StateAcceptor;
@@ -44,12 +45,12 @@ public class EvaluationService implements StateAcceptor<State, EvaluationContext
             throw new EvaluationException("expression is empty", 0);
         }
 
-        final EvaluationCommand evaluationCommand = parser.parse(context);
-        if (evaluationCommand == null) {
+        final Optional<EvaluationCommand> evaluationCommand = parser.parse(context);
+        if (!evaluationCommand.isPresent()) {
             return false;
         }
 
-        evaluationCommand.evaluate(context.getEvaluationStack());
+        evaluationCommand.get().evaluate(context.getEvaluationStack());
 
         return true;
     }
