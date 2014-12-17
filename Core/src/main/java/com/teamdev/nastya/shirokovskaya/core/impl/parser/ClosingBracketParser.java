@@ -4,17 +4,23 @@ import com.google.common.base.Optional;
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import static com.teamdev.nastya.shirokovskaya.core.impl.parser.MathExpressionSymbols.CLOSING_BRACKET;
 
 public class ClosingBracketParser implements MathExpressionParser {
+    private static Logger LOG = Logger.getLogger(ClosingBracketParser.class.getName());
     /**
      * Parses the closing bracket.
      * @param context
-     * @return Evaluation command.
+     * @return Optional<EvaluationCommand>
      */
     @Override
     public Optional<EvaluationCommand> parse(final EvaluationContext context) {
-
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "Parsing closing bracket");
+        }
         final MathExpressionReader expressionReader = context.getExpressionReader();
 
         if (expressionReader.endOfExpression()) {

@@ -5,8 +5,12 @@ import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class EvaluationStack {
+    private static Logger LOG = Logger.getLogger(EvaluationStack.class.getName());
+
     private final Deque<Double> operandStack = new ArrayDeque<Double>();
     private final Deque<BinaryOperator> operatorStack = new ArrayDeque<BinaryOperator>();
     private final Deque<Integer> bracketStack = new ArrayDeque<Integer>();
@@ -16,11 +20,9 @@ public class EvaluationStack {
     public Deque<Double> getOperandStack() {
         return operandStack;
     }
-
     public Deque<Integer> getBracketStack() {
         return bracketStack;
     }
-
     public Deque<Boolean> getFunctionStatusStack() {
         return functionStatusStack;
     }
@@ -30,14 +32,15 @@ public class EvaluationStack {
      * @param binaryOperator
      */
     public void pushOperator(BinaryOperator binaryOperator) {
-
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "Pushing operator");
+        }
         while (!operatorStack.isEmpty()
                 && (bracketStack.isEmpty() || operatorStack.size() > bracketStack.peek())
                 && operatorStack.peek().compareTo(binaryOperator) > -1
                 && !binaryOperator.isRightAssociated()) {
             executeTopOperator();
         }
-
         operatorStack.push(binaryOperator);
     }
 
@@ -46,6 +49,9 @@ public class EvaluationStack {
      * @param function
      */
     public void pushFunction(Function function) {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "Pushing function");
+        }
         functionStack.push(function);
     }
 
@@ -61,6 +67,9 @@ public class EvaluationStack {
      * To perform the operation on the upper operands.
      */
     public void executeTopOperator() {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "Executing top operator");
+        }
         final Double rightOperand = operandStack.pop();
         final Double leftOperand = operandStack.pop();
         final BinaryOperator operator = operatorStack.pop();
@@ -82,6 +91,9 @@ public class EvaluationStack {
      * @param context
      */
     public void pushOpeningBracket(EvaluationContext context) {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "Pushing opening bracket");
+        }
         if (context.getCurrentFunctionStatus()){
             bracketStack.push(operandStack.size());
             bracketStack.push(operatorStack.size());
@@ -97,7 +109,9 @@ public class EvaluationStack {
      * @throws EvaluationException
      */
     public void pushClosingBracket(EvaluationContext context) throws EvaluationException {
-
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "Pushing closing bracket");
+        }
         final Integer operatorStackSize = bracketStack.pop();
 
         while (operatorStack.size() > operatorStackSize) {
@@ -130,6 +144,9 @@ public class EvaluationStack {
      * Pull off the stack closing comma.
      */
     public void pushClosingComma() {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "Pushing closing comma");
+        }
         final Integer operatorStackSize = bracketStack.pop();
 
         while (operatorStack.size() > operatorStackSize){
@@ -141,6 +158,9 @@ public class EvaluationStack {
      * Pull off the stack opening comma.
      */
     public void pushOpeningComma() {
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "Pushing opening comma");
+        }
         bracketStack.push(operatorStack.size());
     }
 }

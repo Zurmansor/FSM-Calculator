@@ -3,15 +3,21 @@ package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 import com.google.common.base.Optional;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class BinaryOperatorParser implements MathExpressionParser {
+    private static Logger LOG = Logger.getLogger(BinaryOperatorParser.class.getName());
     /**
      * Parses the binary operation.
      * @param context
-     * @return Evaluation command.
+     * @return Optional<EvaluationCommand>.
      */
     @Override
     public Optional<EvaluationCommand> parse(EvaluationContext context) {
-
+        if (LOG.isLoggable(Level.INFO)) {
+            LOG.log(Level.INFO, "Parsing binary operator");
+        }
         final MathExpressionReader expressionReader = context.getExpressionReader();
         final BinaryOperatorFactory factory = context.getBinaryOperatorFactory();
 
