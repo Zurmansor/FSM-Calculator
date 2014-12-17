@@ -1,5 +1,7 @@
 package com.teamdev.nastya.shirokovskaya.core.impl.operator;
 
+import com.google.common.base.Preconditions;
+
 public class DivideBinaryOperator extends AbstractBinaryOperator {
 
     @Override
@@ -19,7 +21,8 @@ public class DivideBinaryOperator extends AbstractBinaryOperator {
      * @return result of division
      */
     @Override
-    public double calculate(double leftOperand, double rightOperand) {
+    public double calculate(double leftOperand, double rightOperand) throws IllegalArgumentException{
+        Preconditions.checkArgument(rightOperand != 0, "division by zero");
         return leftOperand / rightOperand;
     }
 }

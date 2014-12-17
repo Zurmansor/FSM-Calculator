@@ -10,8 +10,6 @@ abstract public class AbstractBinaryOperator implements BinaryOperator {
         HIGH
     }
 
-    protected boolean isRightAssociated = false;
-
     /**
      * Check the right associativity
      * @return true if right associated

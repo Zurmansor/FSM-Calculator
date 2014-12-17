@@ -77,4 +77,18 @@ public class BinaryOperatorTest {
         final double result = calculator.evaluate(testExpression);
         assertEquals(7.0, result);
     }
+
+    @Test (expected=EvaluationException.class)
+    public void testDivideBinaryOperatorByZero() throws EvaluationException {
+        String testExpression = "9/0";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+        calculator.evaluate(testExpression);
+    }
+
+    @Test (expected=EvaluationException.class)
+    public void testComplexExpressionDivideBinaryOperatorByZero() throws EvaluationException {
+        String testExpression = "max(5, 3, 10) / min(32,0,12,1,2)";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+        calculator.evaluate(testExpression);
+    }
 }

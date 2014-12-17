@@ -31,7 +31,7 @@ public class EvaluationStack {
      * Places the current operator in the operatorStack.
      * @param binaryOperator
      */
-    public void pushOperator(BinaryOperator binaryOperator) {
+    public void pushOperator(EvaluationContext context, BinaryOperator binaryOperator) throws EvaluationException {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "Pushing operator");
         }
@@ -39,7 +39,7 @@ public class EvaluationStack {
                 && (bracketStack.isEmpty() || operatorStack.size() > bracketStack.peek())
                 && operatorStack.peek().compareTo(binaryOperator) > -1
                 && !binaryOperator.isRightAssociated()) {
-            executeTopOperator();
+            executeTopOperator(context);
         }
         operatorStack.push(binaryOperator);
     }
@@ -56,33 +56,29 @@ public class EvaluationStack {
     }
 
     /**
-     * Places the current status in the functionStatusStack.
-     * @param status
-     */
-    public void pushStatus(Boolean status){
-        functionStatusStack.push(status);
-    }
-
-    /**
      * To perform the operation on the upper operands.
      */
-    public void executeTopOperator() {
+    public void executeTopOperator(EvaluationContext context) throws EvaluationException {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "Executing top operator");
         }
         final Double rightOperand = operandStack.pop();
         final Double leftOperand = operandStack.pop();
         final BinaryOperator operator = operatorStack.pop();
-        final double result = operator.calculate(leftOperand, rightOperand);
-        operandStack.push(result);
+        try{
+            final double result = operator.calculate(leftOperand, rightOperand);
+            operandStack.push(result);
+        } catch (IllegalArgumentException e) {
+            throw new EvaluationException(e.getMessage(), context.getExpressionReader().getIndex());
+        }
     }
 
     /**
      * Pull out all the remaining operations of the stack.
      */
-    public void popAllOperators() {
+    public void popAllOperators(EvaluationContext context) throws EvaluationException {
         while (!operatorStack.isEmpty()) {
-            executeTopOperator();
+            executeTopOperator(context);
         }
     }
 
@@ -115,7 +111,7 @@ public class EvaluationStack {
         final Integer operatorStackSize = bracketStack.pop();
 
         while (operatorStack.size() > operatorStackSize) {
-            executeTopOperator();
+            executeTopOperator(context);
         }
         // handle bracket as usual, and then check whether it is functional
         if (context.getCurrentFunctionStatus()) {
@@ -143,14 +139,14 @@ public class EvaluationStack {
     /**
      * Pull off the stack closing comma.
      */
-    public void pushClosingComma() {
+    public void pushClosingComma(EvaluationContext context) throws EvaluationException {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "Pushing closing comma");
         }
         final Integer operatorStackSize = bracketStack.pop();
 
         while (operatorStack.size() > operatorStackSize){
-            executeTopOperator();
+            executeTopOperator(context);
         }
     }
 

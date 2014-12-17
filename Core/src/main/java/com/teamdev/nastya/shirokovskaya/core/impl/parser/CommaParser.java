@@ -1,6 +1,7 @@
 package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 
 import com.google.common.base.Optional;
+import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ public class CommaParser implements MathExpressionParser {
      * @return Optional<EvaluationCommand>
      */
     @Override
-    public Optional<EvaluationCommand> parse(EvaluationContext context) {
+    public Optional<EvaluationCommand> parse(final EvaluationContext context) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "Parsing comma");
         }
@@ -30,8 +31,8 @@ public class CommaParser implements MathExpressionParser {
             expressionReader.incrementIndex(1);
             EvaluationCommand evaluationCommand = new EvaluationCommand() {
                 @Override
-                public void evaluate(EvaluationStack stack) {
-                    stack.pushClosingComma();
+                public void evaluate(EvaluationStack stack) throws EvaluationException {
+                    stack.pushClosingComma(context);
                     stack.pushOpeningComma();
                 }
             };

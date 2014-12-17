@@ -1,6 +1,7 @@
 package com.teamdev.nastya.shirokovskaya.core.impl;
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.parser.*;
 import com.teamdev.nastya.shirokovskaya.fsm.StateAcceptor;
@@ -34,22 +35,17 @@ public class EvaluationService implements StateAcceptor<State, EvaluationContext
     public boolean acceptState(EvaluationContext context, State possibleState) throws EvaluationException {
 
         final MathExpressionParser parser = parsers.get(possibleState);
-
-        if (parser == null) {
-            throw new IllegalStateException("Parser not found for state: " + possibleState);
-        }
-
+        Preconditions.checkState(parser != null, "Parser not found for state: " + possibleState);
         context.getExpressionReader().skipWhitespaces();
 
         if (context.getExpressionReader().getMathExpression().length() == 0) {
             throw new EvaluationException("expression is empty", 0);
         }
-
         final Optional<EvaluationCommand> evaluationCommand = parser.parse(context);
+
         if (!evaluationCommand.isPresent()) {
             return false;
         }
-
         evaluationCommand.get().evaluate(context.getEvaluationStack());
 
         return true;

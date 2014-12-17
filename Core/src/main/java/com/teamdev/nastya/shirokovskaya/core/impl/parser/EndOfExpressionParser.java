@@ -16,7 +16,7 @@ public class EndOfExpressionParser implements MathExpressionParser {
      * Optional.absent() if it`s not the end of expression, otherwise evaluation command.
      */
     @Override
-    public Optional<EvaluationCommand> parse(EvaluationContext context) {
+    public Optional<EvaluationCommand> parse(final EvaluationContext context) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "Parsing end of expression");
         }
@@ -34,7 +34,7 @@ public class EndOfExpressionParser implements MathExpressionParser {
                     throw new EvaluationException("Closing bracket expected", reader.getIndex());
                 }
 
-                stack.popAllOperators();
+                stack.popAllOperators(context);
             }
         };
         return Optional.of(evaluationCommand);

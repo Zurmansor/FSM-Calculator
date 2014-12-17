@@ -31,7 +31,7 @@ public class OpeningBracketParser implements MathExpressionParser {
             EvaluationCommand evaluationCommand = new EvaluationCommand() {
                 @Override
                 public void evaluate(EvaluationStack stack) {
-                    //сохраняем в стек флагов текущее состояние флага
+                    //сохраняем в стек статуса функции текущее состояние
                     context.getEvaluationStack().getFunctionStatusStack().push(context.getCurrentFunctionStatus());
                     context.setCurrentFunctionStatus(context.getPreviousFunctionStatus());
                     context.setPreviousFunctionStatus(false);
