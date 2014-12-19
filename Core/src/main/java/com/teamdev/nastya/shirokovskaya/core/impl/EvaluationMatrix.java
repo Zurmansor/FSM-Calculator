@@ -14,13 +14,16 @@ import static java.util.EnumSet.of;
 public class EvaluationMatrix implements TransitionMatrix<State> {
 
     private final Map<State, Set<State>> transitions = new HashMap<State, Set<State>>() {{
-        put(START, of(NUMBER, OPENING_BRACKET, FUNCTION));
-        put(NUMBER, of(BINARY_OPERATOR, CLOSING_BRACKET, FINISH));
+        put(START, of(VARIABLE, NUMBER, OPENING_BRACKET, FUNCTION));
+        put(VARIABLE, of(EQUAL));
+        put(EQUAL, of(NUMBER, OPENING_BRACKET, FUNCTION));
+        put(NUMBER, of(BINARY_OPERATOR, CLOSING_BRACKET, DELIMITER, FINISH));
         put(COMMA, noneOf(State.class));
         put(FUNCTION, of(OPENING_BRACKET));
         put(BINARY_OPERATOR, of(NUMBER, OPENING_BRACKET, FUNCTION));
         put(OPENING_BRACKET, of(NUMBER, OPENING_BRACKET, FUNCTION));
-        put(CLOSING_BRACKET, of(BINARY_OPERATOR, CLOSING_BRACKET, FINISH));
+        put(CLOSING_BRACKET, of(BINARY_OPERATOR, CLOSING_BRACKET, DELIMITER, FINISH));
+        put(DELIMITER, of(VARIABLE, FINISH));
         put(FINISH, noneOf(State.class));
     }};
 
@@ -29,6 +32,7 @@ public class EvaluationMatrix implements TransitionMatrix<State> {
         put(COMMA, of(NUMBER, OPENING_BRACKET, FUNCTION));
         put(CLOSING_BRACKET, of(COMMA));
     }};
+
 
     /**
      * Returns the initial state Start.

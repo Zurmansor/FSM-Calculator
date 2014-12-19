@@ -2,6 +2,7 @@ package com.teamdev.nastya.shirokovskaya.core.impl;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.sun.org.apache.xpath.internal.operations.Variable;
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.parser.*;
 import com.teamdev.nastya.shirokovskaya.fsm.StateAcceptor;
@@ -16,11 +17,14 @@ public class EvaluationService implements StateAcceptor<State, EvaluationContext
      */
     private final Map<State, MathExpressionParser> parsers = new HashMap<State, MathExpressionParser>() {{
         put(NUMBER, new NumberParser());
+        put(VARIABLE, new VariableParser());
+        put(EQUAL, new EqualParser());
         put(BINARY_OPERATOR, new BinaryOperatorParser());
         put(OPENING_BRACKET, new OpeningBracketParser());
         put(CLOSING_BRACKET, new ClosingBracketParser());
         put(FUNCTION, new FunctionParser());
         put(COMMA, new CommaParser());
+        put(DELIMITER, new DelimiterParser());
         put(FINISH, new EndOfExpressionParser());
     }};
 
