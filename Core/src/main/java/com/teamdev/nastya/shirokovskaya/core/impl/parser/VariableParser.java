@@ -2,6 +2,7 @@ package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 
 
 import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
@@ -28,18 +29,25 @@ public class VariableParser implements MathExpressionParser{
             return Optional.absent();
         }
 
-        String variable = matcher.group();
+        final String variable = matcher.group();
         final String finalVariable = variable;
         expressionReader.incrementIndex(variable.length());
 
         EvaluationCommand evaluationCommand = new EvaluationCommand() {
             @Override
             public void evaluate(EvaluationStack stack) throws EvaluationException {
-                stack.getVariableMap().put(finalVariable, null);
-
-                if (LOG.isLoggable(Level.INFO)) {
-                    LOG.log(Level.INFO, "Variable added to map: " + finalVariable);
+                if (stack.getLastVariable() == null) {
+                    // left of equal
+                    stack.getVariableMap().put(finalVariable, null);
+                    if (LOG.isLoggable(Level.INFO)) {
+                        LOG.log(Level.INFO, "Variable added to map: " + finalVariable);
+                    }
+                } else {
+                    // right of equal
+                    Preconditions.checkState(stack.getVariableMap().containsKey(variable), "Variable " + variable + " is not contains value");
+                    stack.getOperandStack().push(stack.getVariableMap().get(variable));
                 }
+
             }
         };
         return Optional.of(evaluationCommand);

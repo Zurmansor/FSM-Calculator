@@ -15,13 +15,13 @@ public class EvaluationMatrix implements TransitionMatrix<State> {
 
     private final Map<State, Set<State>> transitions = new HashMap<State, Set<State>>() {{
         put(START, of(VARIABLE, NUMBER, OPENING_BRACKET, FUNCTION));
-        put(VARIABLE, of(EQUAL));
-        put(EQUAL, of(NUMBER, OPENING_BRACKET, FUNCTION));
+        put(VARIABLE, of(EQUAL, BINARY_OPERATOR, CLOSING_BRACKET, FINISH, DELIMITER));
+        put(EQUAL, of(NUMBER, VARIABLE, OPENING_BRACKET, FUNCTION));
         put(NUMBER, of(BINARY_OPERATOR, CLOSING_BRACKET, FINISH, DELIMITER));
         put(COMMA, noneOf(State.class));
         put(FUNCTION, of(OPENING_BRACKET));
-        put(BINARY_OPERATOR, of(NUMBER, OPENING_BRACKET, FUNCTION));
-        put(OPENING_BRACKET, of(NUMBER, OPENING_BRACKET, FUNCTION));
+        put(BINARY_OPERATOR, of(NUMBER, VARIABLE, OPENING_BRACKET, FUNCTION));
+        put(OPENING_BRACKET, of(NUMBER, VARIABLE, OPENING_BRACKET, FUNCTION));
         put(CLOSING_BRACKET, of(BINARY_OPERATOR, CLOSING_BRACKET, FINISH, DELIMITER));
         put(DELIMITER, of(VARIABLE, FINISH));
         put(FINISH, noneOf(State.class));
@@ -29,7 +29,8 @@ public class EvaluationMatrix implements TransitionMatrix<State> {
 
     private final Map<State, Set<State>> functionTransitions = new HashMap<State, Set<State>>() {{
         put(NUMBER, of(COMMA));
-        put(COMMA, of(NUMBER, OPENING_BRACKET, FUNCTION));
+        put(VARIABLE, of(COMMA));
+        put(COMMA, of(NUMBER, VARIABLE, OPENING_BRACKET, FUNCTION));
         put(CLOSING_BRACKET, of(COMMA));
     }};
 
