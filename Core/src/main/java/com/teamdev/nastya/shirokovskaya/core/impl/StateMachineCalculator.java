@@ -4,13 +4,15 @@ import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.MathExpressionCalculator;
 import com.teamdev.nastya.shirokovskaya.fsm.FiniteStateMachine;
 
+import java.util.HashMap;
+
 
 public class StateMachineCalculator extends FiniteStateMachine<
-        State, EvaluationContext, Double, EvaluationException>
+        State, EvaluationContext, HashMap<String, Double>, EvaluationException>
         implements MathExpressionCalculator {
 
     @Override
-    public double evaluate(String mathExpression) throws EvaluationException {
+    public HashMap<String, Double> evaluate(String mathExpression) throws EvaluationException {
         return run(new EvaluationContext(mathExpression));
     }
 
@@ -21,7 +23,8 @@ public class StateMachineCalculator extends FiniteStateMachine<
     }
 
     @Override
-    protected Double finish(EvaluationContext context) {
-        return context.getEvaluationStack().getOperandStack().pop();
+    protected HashMap<String, Double> finish(EvaluationContext context) {
+//        double evaluationResult = context.getEvaluationStack().getOperandStack().pop();
+        return context.getEvaluationStack().getVariableMap();
     }
 }

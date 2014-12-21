@@ -1,3 +1,4 @@
+/*
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.StateMachineCalculator;
 import org.junit.Test;
@@ -65,3 +66,5 @@ public class ComplexExpressionTest {
         assertEquals(12.0, result);
     }
 }
+
+*/

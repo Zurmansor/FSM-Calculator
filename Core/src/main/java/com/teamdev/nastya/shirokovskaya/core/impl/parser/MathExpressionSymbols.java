@@ -3,7 +3,9 @@ package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 public enum MathExpressionSymbols {
     OPENING_BRACKET('('),
     CLOSING_BRACKET(')'),
-    COMMA(',');
+    COMMA(','),
+    EQUAL('='),
+    DELIMITER(';');
 
     private final char symbol;
 

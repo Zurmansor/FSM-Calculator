@@ -5,6 +5,7 @@ import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,15 +17,33 @@ public class EvaluationStack {
     private final Deque<Integer> bracketStack = new ArrayDeque<Integer>();
     private final Deque<Function> functionStack = new ArrayDeque<Function>();
     private final Deque<Boolean> functionStatusStack = new ArrayDeque<Boolean>();
+    private final HashMap<String,Double> variableMap = new HashMap<String, Double>();
+
 
     public Deque<Double> getOperandStack() {
         return operandStack;
     }
+
     public Deque<Integer> getBracketStack() {
         return bracketStack;
     }
+
     public Deque<Boolean> getFunctionStatusStack() {
         return functionStatusStack;
+    }
+
+    public HashMap<String,Double> getVariableMap() {
+        return variableMap;
+    }
+
+    public String getLastVariable () {
+        for(String variable : variableMap.keySet()) {
+            if (variableMap.get(variable) == null) {
+                return variable;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -158,5 +177,11 @@ public class EvaluationStack {
             LOG.log(Level.INFO, "Pushing opening comma");
         }
         bracketStack.push(operatorStack.size());
+    }
+
+    public void putSolutionOfVariableToMap(EvaluationContext context) throws EvaluationException {
+        popAllOperators(context);
+        String variable = getLastVariable();
+        getVariableMap().put(variable, getOperandStack().pop());
     }
 }

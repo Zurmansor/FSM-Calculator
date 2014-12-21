@@ -17,12 +17,12 @@ public class EvaluationMatrix implements TransitionMatrix<State> {
         put(START, of(VARIABLE, NUMBER, OPENING_BRACKET, FUNCTION));
         put(VARIABLE, of(EQUAL));
         put(EQUAL, of(NUMBER, OPENING_BRACKET, FUNCTION));
-        put(NUMBER, of(BINARY_OPERATOR, CLOSING_BRACKET, DELIMITER, FINISH));
+        put(NUMBER, of(BINARY_OPERATOR, CLOSING_BRACKET, FINISH, DELIMITER));
         put(COMMA, noneOf(State.class));
         put(FUNCTION, of(OPENING_BRACKET));
         put(BINARY_OPERATOR, of(NUMBER, OPENING_BRACKET, FUNCTION));
         put(OPENING_BRACKET, of(NUMBER, OPENING_BRACKET, FUNCTION));
-        put(CLOSING_BRACKET, of(BINARY_OPERATOR, CLOSING_BRACKET, DELIMITER, FINISH));
+        put(CLOSING_BRACKET, of(BINARY_OPERATOR, CLOSING_BRACKET, FINISH, DELIMITER));
         put(DELIMITER, of(VARIABLE, FINISH));
         put(FINISH, noneOf(State.class));
     }};

@@ -34,7 +34,9 @@ public class EndOfExpressionParser implements MathExpressionParser {
                     throw new EvaluationException("Closing bracket expected", reader.getIndex());
                 }
 
-                stack.popAllOperators(context);
+                if (stack.getOperandStack().size() > 0) {
+                    stack.putSolutionOfVariableToMap(context);
+                }
             }
         };
         return Optional.of(evaluationCommand);

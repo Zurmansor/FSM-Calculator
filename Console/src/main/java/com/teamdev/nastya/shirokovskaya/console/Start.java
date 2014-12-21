@@ -6,8 +6,10 @@ import com.teamdev.nastya.shirokovskaya.core.impl.StateMachineCalculator;
 
 import java.util.Scanner;
 
+
 public class Start {
     public static void main(String[] args){
+
         Scanner scanner = new Scanner( System.in);
         String mathExpression = scanner.nextLine();//считываем одну строку целиком
 
@@ -24,7 +26,6 @@ public class Start {
             }
             mathExpression = scanner.nextLine();
         }
-
 
     }
 }
