@@ -36,16 +36,6 @@ public class EvaluationStack {
         return variableMap;
     }
 
-    public String getLastVariableName() {
-        for(String variable : variableMap.keySet()) {
-            if (variableMap.get(variable) == null) {
-                return variable;
-            }
-        }
-
-        return null;
-    }
-
     /**
      * Places the current operator in the operatorStack.
      * @param binaryOperator

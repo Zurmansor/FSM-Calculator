@@ -2,25 +2,33 @@ package com.teamdev.nastya.shirokovskaya.mvc.view;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class View {
     final private int FORM_WIDTH = 480;
-    final private int FORM_HEIGHT = 130;
+    final private int FORM_HEIGHT = 250;
+    private final JFrame frame;
 
     private JLabel expressionLabel;
-    private JTextField expressionField;
+    private JTextArea expressionField;
     private JLabel resultLabel;
     private JLabel resultField;
     private JButton calculateBtn;
+    private JLabel calculateLabel;
 
     public View() {
-        JFrame frame = new JFrame("Calculator");
+        frame = new JFrame("Calculator");
         calculateBtn = new JButton("Calculate");
-        expressionField = new JTextField(20);
+        calculateLabel = new JLabel("Ctrl + Enter");
+//        expressionField = new JTextField(20);
+        expressionField = new JTextArea();
 
         expressionLabel = new JLabel("Enter the expression:");
         resultLabel = new JLabel("Result:");
         resultField = new JLabel("");
+
+        JScrollPane expressionPanel = new JScrollPane(expressionField);
+        JScrollPane resultPanel = new JScrollPane(resultField);
 
         frame.setSize(FORM_WIDTH, FORM_HEIGHT);
         frame.setResizable(false);
@@ -30,21 +38,33 @@ public class View {
         resultLabel.setHorizontalAlignment(SwingConstants.RIGHT);
         expressionLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
-        resultField.setBackground(Color.RED);
+//        resultField.setBackground(Color.RED);
+        calculateLabel.setForeground(Color.GRAY);
 
         expressionLabel.setBounds(10, 10, 130, 20);
-        resultLabel.setBounds(10, 35, 130, 20);
 
-        expressionField.setBounds(150, 10, 300, 20);
-        resultField.setBounds(150, 35, 300, 20);
 
-        calculateBtn.setBounds(150, 70, 150, 20);
+
+        resultLabel.setBounds(10, 100, 130, 20);
+
+        expressionPanel.setBounds(150, 10, 300, 70);
+        expressionField.setBounds(0, 0, 300, 70);
+
+        resultPanel.setBounds(150, 100, 300, 70);
+        resultField.setBounds(0, 0, 300, 20);
+        resultField.setVerticalAlignment(SwingConstants.TOP);
+
+        calculateBtn.setBounds(150, 190, 150, 20);
+        calculateLabel.setBounds(310, 190, 150, 20);
+
+//        JTextArea ta = new JTextArea();
 
         frame.add(expressionLabel);
-        frame.add(expressionField);
+        frame.add(expressionPanel);
         frame.add(resultLabel);
-        frame.add(resultField);
+        frame.add(resultPanel);
         frame.add(calculateBtn);
+        frame.add(calculateLabel);
 
         frame.setVisible(true);
     }
@@ -57,13 +77,30 @@ public class View {
         return calculateBtn;
     }
 
-    public JTextField getExpressionField() {
+    public JTextArea getExpressionField() {
         return expressionField;
     }
 
-    public void setResult (double result) {
+    public void setResult (HashMap<String, Double> result) {
         resultField.setForeground(Color.BLACK);
-        resultField.setText(String.valueOf(result));
+
+        String resultText = "";
+
+        // if simple calculator operation
+        if (result.size() == 1 && result.containsKey(null)) {
+            resultText = String.valueOf(result.get(null));
+        } else {
+            for (String variable : result.keySet()) {
+                if (variable == null) {
+                    continue;
+                }
+                resultText += variable + " = " + result.get(variable) + "<br/>";
+            }
+
+            resultText = "<html><body>" + resultText + "</body></html>";
+        }
+        resultField.setText(resultText);
+        resultField.setSize(resultField.getPreferredSize());
     }
 
     public void setError (String error, int position) {

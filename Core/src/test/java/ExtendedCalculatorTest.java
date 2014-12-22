@@ -70,4 +70,30 @@ public class ExtendedCalculatorTest {
         final HashMap<String, Double> result = calculator.evaluate(testExpression);
         assertEquals(testMap, result);
     }
+
+    @Test
+    public void testSameVariables() throws EvaluationException {
+        String testExpression = "a = 2 + 3; a = a * a * a;";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put("a", 125.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
+    }
+
+    @Test
+    public void testFunctionVariable() throws EvaluationException {
+        String testExpression = "a = 10; b = 8; max200 = max(a, b)";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put("a", 10.0);
+        testMap.put("b", 8.0);
+        testMap.put("max200", 10.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
+    }
 }

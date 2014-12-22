@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
 
 public class Controller {
     private Model model;
@@ -30,7 +31,7 @@ public class Controller {
         calculateBtn.addActionListener(actionListener);
 
 
-        JTextField expressionField = view.getExpressionField();
+        JTextArea expressionField = view.getExpressionField();
 
         KeyListener keyListener = new KeyListener() {
             @Override
@@ -40,8 +41,8 @@ public class Controller {
 
             @Override
             public void keyPressed(KeyEvent e) {
-                // если нажа ENTER, отправляем выражение как по кнопке Calculate
-                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                // если нажата комбинация CTRL+ENTER, отправляем выражение как по кнопке Calculate
+                if ((e.getKeyCode() == KeyEvent.VK_ENTER) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
                     calculateButtonEvent();
                 }
             }
@@ -56,7 +57,8 @@ public class Controller {
 
     public void calculateButtonEvent(){
         String mathExpression = view.getExpression();
-        double result = 0;
+//        double result = 0;
+        HashMap<String, Double> result = null;
         try {
             result = model.calcExpression(mathExpression);
             view.setResult(result);

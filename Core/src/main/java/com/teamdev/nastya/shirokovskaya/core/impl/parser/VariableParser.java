@@ -32,6 +32,11 @@ public class VariableParser implements MathExpressionParser{
 
         final String variable = matcher.group();
         final String finalVariable = variable;
+        FunctionFactory functionFactory = new FunctionFactory();
+
+        if (functionFactory.getAvailableFunctionPresentations().contains(variable)) {
+            return Optional.absent();
+        }
         expressionReader.incrementIndex(variable.length());
 
         EvaluationCommand evaluationCommand = new EvaluationCommand() {
