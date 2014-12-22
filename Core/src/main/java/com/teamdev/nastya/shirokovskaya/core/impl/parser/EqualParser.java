@@ -14,7 +14,7 @@ public class EqualParser implements MathExpressionParser{
     private static Logger LOG = Logger.getLogger(VariableParser.class.getName());
     
     @Override
-    public Optional<EvaluationCommand> parse(EvaluationContext context) {
+    public Optional<EvaluationCommand> parse(final EvaluationContext context) {
         if (LOG.isLoggable(Level.INFO)) {
             LOG.log(Level.INFO, "Parsing equal");
         }

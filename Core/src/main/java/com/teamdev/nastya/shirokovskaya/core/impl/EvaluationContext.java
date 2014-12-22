@@ -10,6 +10,7 @@ public class EvaluationContext implements StateMachineContext<State,
 
     private boolean currentFunctionStatus = false;
     private boolean previousFunctionStatus = false;
+    private String currentVariable = null;
     private final EvaluationMatrix matrix = new EvaluationMatrix();
     private final EvaluationService evaluationService = new EvaluationService();
     private final BinaryOperatorFactory binaryOperatorFactory = new BinaryOperatorFactory();
@@ -29,28 +30,12 @@ public class EvaluationContext implements StateMachineContext<State,
         return currentFunctionStatus;
     }
 
-    /**
-     * Determination of current brackets status.
-     * @param status
-     */
-    public void setCurrentFunctionStatus(Boolean status) {
-        currentFunctionStatus = status;
-    }
-
-    /**
+     /**
      * Determination of previous brackets status.
      * @return
      */
     public boolean getPreviousFunctionStatus() {
         return previousFunctionStatus;
-    }
-
-    /**
-     * Setting a status for the previous brackets.
-     * @param status
-     */
-    public void setPreviousFunctionStatus(Boolean status) {
-        previousFunctionStatus = status;
     }
 
     public MathExpressionReader getExpressionReader() {
@@ -72,6 +57,30 @@ public class EvaluationContext implements StateMachineContext<State,
     @Override
     public TransitionMatrix<State> getTransitionMatrix() {
         return matrix;
+    }
+
+    public String getCurrentVariable() {
+        return currentVariable;
+    }
+
+    /**
+     * Setting a status for the previous brackets.
+     * @param status
+     */
+    public void setPreviousFunctionStatus(Boolean status) {
+        previousFunctionStatus = status;
+    }
+
+    /**
+     * Determination of current brackets status.
+     * @param status
+     */
+    public void setCurrentFunctionStatus(Boolean status) {
+        currentFunctionStatus = status;
+    }
+
+    public void setcurrentVariable(String currentVariable) {
+        this.currentVariable = currentVariable;
     }
 
     @Override

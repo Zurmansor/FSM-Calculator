@@ -3,6 +3,7 @@ package com.teamdev.nastya.shirokovskaya.core.impl.parser;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import com.google.common.base.Strings;
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.*;
 
@@ -36,16 +37,21 @@ public class VariableParser implements MathExpressionParser{
         EvaluationCommand evaluationCommand = new EvaluationCommand() {
             @Override
             public void evaluate(EvaluationStack stack) throws EvaluationException {
-                if (stack.getLastVariable() == null) {
+
+                if (Strings.isNullOrEmpty(context.getCurrentVariable())) {
                     // left of equal
-                    stack.getVariableMap().put(finalVariable, null);
+                    context.setcurrentVariable(variable);
                     if (LOG.isLoggable(Level.INFO)) {
-                        LOG.log(Level.INFO, "Variable added to map: " + finalVariable);
+                        LOG.log(Level.INFO, "Variable has been parsed - " + variable);
                     }
                 } else {
                     // right of equal
                     Preconditions.checkState(stack.getVariableMap().containsKey(variable), "Variable " + variable + " is not contains value");
-                    stack.getOperandStack().push(stack.getVariableMap().get(variable));
+                    double variableValue = stack.getVariableMap().get(variable);
+                    if (LOG.isLoggable(Level.INFO)) {
+                        LOG.log(Level.INFO, "Variable has been parsed: " + variable + "=" + variableValue);
+                    }
+                    stack.getOperandStack().push(variableValue);
                 }
 
             }

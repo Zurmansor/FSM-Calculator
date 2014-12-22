@@ -36,7 +36,7 @@ public class EvaluationStack {
         return variableMap;
     }
 
-    public String getLastVariable () {
+    public String getLastVariableName() {
         for(String variable : variableMap.keySet()) {
             if (variableMap.get(variable) == null) {
                 return variable;
@@ -181,7 +181,7 @@ public class EvaluationStack {
 
     public void putSolutionOfVariableToMap(EvaluationContext context) throws EvaluationException {
         popAllOperators(context);
-        String variable = getLastVariable();
-        getVariableMap().put(variable, getOperandStack().pop());
+        getVariableMap().put(context.getCurrentVariable(), getOperandStack().pop());
+        context.setcurrentVariable(null);
     }
 }
