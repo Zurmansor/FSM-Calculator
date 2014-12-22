@@ -94,7 +94,7 @@ public class View {
                 if (variable == null) {
                     continue;
                 }
-                resultText += variable + " = " + result.get(variable) + "<br/>";
+                resultText = variable + " = " + result.get(variable) + "<br/>" + resultText;
             }
 
             resultText = "<html><body>" + resultText + "</body></html>";
