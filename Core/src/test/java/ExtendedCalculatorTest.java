@@ -154,7 +154,7 @@ public class ExtendedCalculatorTest {
     }
 
     @Test
-    public void testFunctionVariable() throws EvaluationException {
+     public void testFunctionVariable() throws EvaluationException {
         String testExpression = "a = sum(35, 12); b = min(14, 120, 39); c = max(6, 5, min(173, 12))";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
@@ -165,5 +165,35 @@ public class ExtendedCalculatorTest {
 
         final HashMap<String, Double> result = calculator.evaluate(testExpression);
         assertEquals(testMap, result);
+    }
+
+    @Test
+     public void testLongVariables() throws EvaluationException {
+        String testExpression = "he34kj_3fg=6*10;  HHEF34F = 20*33; j___rg4JH4g_5456 = he34kj_3fg^(HHEF34F/20)";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put("he34kj_3fg", 60.0);
+        testMap.put("HHEF34F", 660.0);
+        testMap.put("j___rg4JH4g_5456", 4.7751966659678403E58);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
+    }
+
+    @Test (expected = EvaluationException.class)
+    public void testReservedVariableName() throws EvaluationException {
+        String testExpression = "max = 2*4";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+
+        calculator.evaluate(testExpression);
+    }
+
+    @Test (expected = EvaluationException.class)
+    public void testNoVariable() throws EvaluationException {
+        String testExpression = "ab = 2+2 ; 5-6";
+        final StateMachineCalculator calculator = new StateMachineCalculator();
+
+        calculator.evaluate(testExpression);
     }
 }
