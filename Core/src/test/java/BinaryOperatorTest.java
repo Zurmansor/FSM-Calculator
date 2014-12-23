@@ -118,7 +118,6 @@ public class BinaryOperatorTest {
         final StateMachineCalculator calculator = new StateMachineCalculator();
         calculator.evaluate(testExpression);
     }
-
 }
 
 

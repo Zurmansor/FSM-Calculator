@@ -205,15 +205,10 @@ public class FunctionTest {
     }
 
     @Test(expected = EvaluationException.class)
-    public void testEmpty() throws EvaluationException {
+    public void testEmptyExpression() throws EvaluationException {
         String testExpression = "";
         final StateMachineCalculator calculator = new StateMachineCalculator();
-
-        HashMap<String, Double> testMap = new HashMap<String, Double>();
-        testMap.put(null, 1.0);
-
-        final HashMap<String, Double> result = calculator.evaluate(testExpression);
-        assertEquals(testMap, result);
+        calculator.evaluate(testExpression);
     }
 
 

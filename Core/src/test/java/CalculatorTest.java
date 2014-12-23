@@ -68,15 +68,6 @@ public class CalculatorTest {
         assertEquals(testMap, result);
     }
 
-//    @Test
-//    public void testSkipEnter() throws EvaluationException {
-//        String testExpression = "2+//n 3";
-//        final StateMachineCalculator calculator = new StateMachineCalculator();
-//
-//        final double result = calculator.evaluate(testExpression);
-//        assertEquals(5.0, result);
-//    }
-
     @Test (expected = EvaluationException.class)
     public void testUnfinishedExpression() throws EvaluationException {
         String testExpression = "3-4-";
