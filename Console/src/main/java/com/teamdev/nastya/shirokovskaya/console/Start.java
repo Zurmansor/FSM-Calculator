@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Start {
     public static void main(String[] args){
         Scanner scanner = new Scanner( System.in);
-        String mathExpression = scanner.nextLine();//считываем одну строку целиком
+        String mathExpression = scanner.nextLine();//reads one line entirely
 
         while (!mathExpression.equals("exit")){
             final StateMachineCalculator calculator = new StateMachineCalculator();

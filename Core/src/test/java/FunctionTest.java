@@ -1,7 +1,8 @@
-/*
 import com.teamdev.nastya.shirokovskaya.core.EvaluationException;
 import com.teamdev.nastya.shirokovskaya.core.impl.StateMachineCalculator;
 import org.junit.Test;
+
+import java.util.HashMap;
 
 import static junit.framework.Assert.assertEquals;
 
@@ -12,8 +13,11 @@ public class FunctionTest {
         String testExpression = "min(1, 7)";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(1.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 1.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -21,8 +25,11 @@ public class FunctionTest {
         String testExpression = "min(1, 7, -1)";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(-1.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, -1.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -30,8 +37,11 @@ public class FunctionTest {
         String testExpression = "min(5,7,2-1)";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(1.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 1.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -39,8 +49,11 @@ public class FunctionTest {
         String testExpression = "min(5,7,(2-1))";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(1.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 1.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -48,8 +61,11 @@ public class FunctionTest {
         String testExpression = "min(5, 7, min(3, 2))";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(2.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 2.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -57,8 +73,11 @@ public class FunctionTest {
         String testExpression = "max(5,7,(2+6))";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(8.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 8.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -66,8 +85,11 @@ public class FunctionTest {
         String testExpression = "max(5,7,max(3,9))";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(9.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 9.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -75,8 +97,11 @@ public class FunctionTest {
         String testExpression = "sum(5,7,(2-1),8)";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(21.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 21.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -84,8 +109,11 @@ public class FunctionTest {
         String testExpression = "sum(5,7,sum(3,2))";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(17.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 17.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -93,8 +121,11 @@ public class FunctionTest {
         String testExpression = "sqrt(4)";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(2.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 2.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test(expected=EvaluationException.class)
@@ -116,8 +147,11 @@ public class FunctionTest {
         String testExpression = "sqrt(sqrt(81))";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(3.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 3.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -125,8 +159,11 @@ public class FunctionTest {
         String testExpression = "abs(-20)";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(20.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 20.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test(expected=EvaluationException.class)
@@ -141,8 +178,11 @@ public class FunctionTest {
         String testExpression = "3^2^3";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(6561.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 6561.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test(expected = EvaluationException.class)
@@ -157,8 +197,11 @@ public class FunctionTest {
         String testExpression = "min(1, 7 - 9)";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(-2.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, -2.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test(expected = EvaluationException.class)
@@ -166,10 +209,12 @@ public class FunctionTest {
         String testExpression = "";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(1.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 1.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
 
 }
-*/

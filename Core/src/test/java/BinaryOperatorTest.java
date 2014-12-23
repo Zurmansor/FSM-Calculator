@@ -21,14 +21,16 @@ public class BinaryOperatorTest {
         assertEquals(testMap, result);
     }
 
-/*
     @Test
     public void testPlusBinaryOperator() throws EvaluationException {
         String testExpression = "3+9";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(12.00, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 12.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -36,8 +38,11 @@ public class BinaryOperatorTest {
         String testExpression = "9/3";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(3.00, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 3.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -45,8 +50,11 @@ public class BinaryOperatorTest {
         String testExpression = "9*4";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(36.00, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 36.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -54,8 +62,11 @@ public class BinaryOperatorTest {
         String testExpression = "3^3";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(27.00, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 27.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -63,8 +74,11 @@ public class BinaryOperatorTest {
         String testExpression = "5+4*2";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(13.00, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 13.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -72,8 +86,11 @@ public class BinaryOperatorTest {
         String testExpression = "5+4*3^2";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(41.00, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 41.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test
@@ -81,8 +98,11 @@ public class BinaryOperatorTest {
         String testExpression = "min(5,7)+min(8,2)";
         final StateMachineCalculator calculator = new StateMachineCalculator();
 
-        final double result = calculator.evaluate(testExpression);
-        assertEquals(7.0, result);
+        HashMap<String, Double> testMap = new HashMap<String, Double>();
+        testMap.put(null, 7.0);
+
+        final HashMap<String, Double> result = calculator.evaluate(testExpression);
+        assertEquals(testMap, result);
     }
 
     @Test (expected=EvaluationException.class)
@@ -98,6 +118,7 @@ public class BinaryOperatorTest {
         final StateMachineCalculator calculator = new StateMachineCalculator();
         calculator.evaluate(testExpression);
     }
-*/
+
 }
+
 
